@@ -14,7 +14,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        $sections = Section::where('deleted','0')->get();
+		return view('admin.section.index',compact('sections'));
     }
 
     /**
@@ -24,7 +25,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.section.create');
     }
 
     /**
@@ -46,7 +47,7 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        //
+        return view('admin.section.show',compact('section'));
     }
 
     /**
@@ -57,7 +58,7 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+        return view('admin.section.edit', compact('section'));
     }
 
     /**
@@ -69,7 +70,7 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //
+        
     }
 
     /**

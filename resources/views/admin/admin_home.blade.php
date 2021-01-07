@@ -10,7 +10,7 @@
             </div>
         </div>
     </a>
-    <a href="{{route('admin.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
+    <a href="{{route('student.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Student</h5>
@@ -18,7 +18,7 @@
             </div>
         </div>
     </a>
-    <a href="{{route('admin.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
+    <a href="{{route('section.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Section</h5>

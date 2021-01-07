@@ -48,8 +48,8 @@
         <label class="form-check-label" for="female">Female</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" id="female" value="male">
-        <label class="form-check-label" for="female">Male</label>
+        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+        <label class="form-check-label" for="male">Male</label>
       </div>
     </div>
   </div>
@@ -85,10 +85,25 @@
   </div>
   
   <div class="form-group row">
-    <label for="salary" class="col-md-4 col-form-label text-md-right">Salary</label>
+    <label for="personnel_type" class="col-md-4 col-form-label text-md-right">Personnel Type</label>
     <div class="col-md-6">
-        <input id="salary" type="number" class="form-control" name="salary" required>
+    <select name="personnel_type" class="form-control" id="personnel_type" required>
+          <option value="teacher">Teacher</option>
+          <option value="counselor">Councelor</option>
+          <option value="healthCareProfessional">HealthCareProfessional</option>
+          <option value="librarian">Librarian</option>
+          <option value="principal">Principal</option>
+        </select>
 
+        <span class="invalid-feedback" role="alert">
+          <strong></strong>
+        </span>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-4 col-form-label text-md-right" for="password">{{ __(' Password') }}</label>
+    <div class="col-md-6">
+        <input class="form-control" type="password" name="password" id="password" required />
         <span class="invalid-feedback" role="alert">
           <strong></strong>
         </span>

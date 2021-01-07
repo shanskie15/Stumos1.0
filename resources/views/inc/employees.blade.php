@@ -41,28 +41,28 @@ $(document).ready(function(){
         $('#cancelBig').show();
         $('#saveBig').unbind();
         $('#saveBig').on('click',function(){
-          
-        saveEmployee();
+          saveEmployee();
         });
       });
     }
   );
 
-
   // Save Employee
   function saveEmployee()
   {
     var employee = getData();
-    //alert(JSON.stringify(employee));
+    // alert(JSON.stringify(employee));
     resetErrors();
     $.post("{{route('employees.store')}}",employee,function(result){
-      //alert(result);
+      alert(result);
       if('invalid' == result.status){
         showErrors(result.errors);
       }else if('success' == result.status){
-        appendTo(result.id);
-        swal('Success',result.message,'success');
-        $('#cancelBig').click();
+        $(document).ready(function(){
+          appendTo(result.id);
+          swal('Success',result.message,'success');
+          $('#cancelBig').click();
+        });
       }
     });
     
@@ -256,6 +256,7 @@ $(document).ready(function(){
       address : toTitleCase($('#address').val()),
       personnel_type : $('#personnel_type').val()
     };
+
     return employee;
   }
 

@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Section;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SectionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Section $model)
     {
-        $sections = Section::where('deleted','0')->get();
-		return view('admin.section.index',compact('sections'));
+        $users = User::where('personnel_type','teacher')->get();
+        return view('admin.section.index',['sections' => $model->paginate(15)],compact('users'));
     }
 
     /**
@@ -36,7 +42,12 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $section = Section::create([
+            'section_name' => $request->section_name,
+            'room_number' => $request->room_number
+        ]);
+
+        return redirect()->route('section.index');
     }
 
     /**
@@ -45,9 +56,11 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function edit($id)
     {
-        return view('admin.section.show',compact('section'));
+        $section = Section::find($id);
+        $users = User::where('personnel_type','teacher')->get();
+        return view('admin.section.edit', compact('section','users'));
     }
 
     /**
@@ -56,9 +69,9 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit(Section $section)
+    public function show(Section $section)
     {
-        return view('admin.section.edit', compact('section'));
+        //
     }
 
     /**
@@ -68,9 +81,19 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'section_name'=>'required',
+            'room_number'=>'required'
+        ]);
+        $section = Section::find($id);
+        $section->section_name = $request->get('section_name');
+        $section->room_number = $request->get('room_number');
+        $section->user_id = $request->get('user_id');
+        $section->save();
         
+        return redirect()->route('section.index')->with('success','Section updated successfully');
     }
 
     /**
@@ -79,8 +102,11 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy($id)
     {
-        //
+        $section = Section::find($id);
+        $section->delete();
+
+        return redirect()->route('section.index')->with('success', 'Section deleted!');
     }
 }

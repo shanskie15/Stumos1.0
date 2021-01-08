@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
-        'first_name',
-        'middle_name',
-        'last_name',
+        'firstname',
+        'middlename',
+        'lastname',
         'year',
+        'address',
+        'birthdate',
+        'gender',
         'contact',
         'parent_name',
         'pcontact',

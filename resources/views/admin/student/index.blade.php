@@ -3,36 +3,72 @@
     
 @endsection
 @section('content-body')
-<div class="card">
+@include('admin.student.create')
+<div class="card" style="margin:2%;">
   <div class="card-header">
     Student
   </div>
   <div class="card-body">
-    <table class="display row-border" id="studentsTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Year</th>
-          <th>Section</th>
-          <th style="width:10%">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($students as $student)
-          <tr id="{{$student->id}}">
-            <td>{{$student->lastname.', ',$student->firstname}}</td>
-            <td>{{$student->year}}</td>
-            <td>{{$student->section->section_name}}</td>
-            <td>
-              <button onclick="deleteStudent({{$student->id}},this)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash-alt"></i></button>
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table" id="studentTable">
+          <thead class=" text-primary">
+            <th>
+                {{ __('Name') }}
+            </th>
+            <th>
+              {{ __('Year') }}
+            </th>
+            <th>
+              {{ __('Section') }}
+            </th>
+            <th>
+              {{ __('Teacher/Adviser') }}
+            </th>
+            <th class="text-right">
+              {{ __('Actions') }}
+            </th>
+          </thead>
+          <tbody>
+            @foreach($students as $student)
+              <tr>
+                <td>
+                  {{ $student->firstname.' '.$student->lastname }}
+                </td>
+                <td>
+                  {{ $student->year }}
+                </td>
+                <td>
+                @foreach($sections as $section)
+                  @if ($section->id == $student->section_id)
+                    {{ $section->section_name }} 
+                </td>
+                <td>
+                    @foreach($users as $user)
+                      @if ($user->id == $section->user_id)
+                        {{ $user->firstname.' '.$user->lastname }}
+                      @endif
+                    @endforeach
+                  @endif
+                @endforeach
+                </td>
+                <td class="text-right">
+                    <form action="{{ route('student.destroy', $student->id) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <a href="#" class="btn btn-primary" type="button">View</a>
+                        <a href="{{ route('student.edit', $student->id)}}" class="btn btn-primary" type="button">Edit</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
-
 {{-- Modal --}}
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">

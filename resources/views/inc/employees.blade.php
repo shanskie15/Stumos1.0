@@ -6,8 +6,8 @@ $(document).ready(function(){
             { "data": "name" },
             { "data": "email" },
             { "data": "contact" },
-            { "data": "delete" },
-            { "data": "gender" },
+            { "data": "type" },
+            { "data": "action" },
         ]
     }
   );
@@ -32,46 +32,7 @@ $(document).ready(function(){
       });
     });
   }
-  $('#add').on('click',function(){
-      $.get("{{route('employees.create')}}",function(data,status){
-        $('#bigModalLabel').html('Add Employee');
-        $('#saveBig').html('Save');
-        $('#bigModalBody').html(data);
-        $('#saveBig').show();
-        $('#cancelBig').show();
-        $('#saveBig').unbind();
-        $('#saveBig').on('click',function(){
-          saveEmployee();
-        });
-      });
-    }
-  );
 
-  // Save Employee
-  function saveEmployee()
-  {
-    var employee = getData();
-    // alert(JSON.stringify(employee));
-    resetErrors();
-    $.post("{{route('employees.store')}}",employee,function(result){
-      alert(result);
-      if('invalid' == result.status){
-        showErrors(result.errors);
-      }else if('success' == result.status){
-        $(document).ready(function(){
-          appendTo(result.id);
-          swal('Success',result.message,'success');
-          $('#cancelBig').click();
-        });
-      }
-    });
-    
-    // Add to table
-    function appendTo(id)
-    {
-      table.row.add(fillRowData(employee,id)).draw();
-    }
-  }
   // Show errors
   function showErrors(errors)
   {

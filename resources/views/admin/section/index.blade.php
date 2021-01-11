@@ -22,7 +22,7 @@
             <th>
               {{ __('Teacher/Adviser') }}
             </th>
-            <th class="text-right">
+            <th style="width:30%">
               {{ __('Actions') }}
             </th>
           </thead>
@@ -38,18 +38,14 @@
                 <td>
                 @foreach($users as $user)
                   @if ($user->id == $section->user_id)
-                    {{ $user->first_name.' '.$user->last_name }}
+                    {{ $user->firstname.' '.$user->lastname }}
                   @endif
                 @endforeach
                 </td>
-                <td class="text-right">
-                    <form action="{{ route('section.destroy', $section->id) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <a href="#" class="btn btn-primary" type="button">View</a>
-                        <a href="{{ route('section.edit', $section->id)}}" class="btn btn-primary" type="button">Edit</a>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                <td>
+                <button onclick="viewEmployee({{$section->id}})" class="btn btn-primary" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
+                <button class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
+                <button onclick="deleteEmployee({{$section->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
                 </td>
               </tr>
             @endforeach
@@ -59,6 +55,27 @@
     </div>
   </div>
 </div>
+
+{{-- Modal --}}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header card-header" style="background-color:#108790;color:white">
+        <h5 class="modal-title" id="modalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body" id="modalBody"></div>
+      <div class="modal-footer card-footer" style="background-color:#108790;color:white">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelNormal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="saveNormal">Save changes</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+@include('admin.section.edit')
 @endsection
 
 

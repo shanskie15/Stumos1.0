@@ -3,10 +3,10 @@
     
 @endsection
 @section('content-body')
-<div class="card">
+@include('admin.employees.create')
+<div class="card" style="margin:2%;">
   <div class="card-header">
     Employees
-    <a href="#" class="btn btn-sm btn-success float-right" id="add" data-toggle="modal" data-target="#bigModal">Add employee</a>
   </div>
   <div class="card-body">
     <table class="display row-border" id="employeesTable">
@@ -15,24 +15,22 @@
           <th>Name</th>
           <th>Email</th>
           <th>Contact</th>
-          
-          <th style="width:10%">Delete</th>
-          <th>Gender</th>
+          <th>Type</th>
+          <th style="width:30%">Action</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($employees as $employee)
           <tr id="{{$employee->id}}">
-            <td>
-              <a href="#" onclick="viewEmployee({{$employee->id}})" data-target="#bigModal" data-toggle="modal">{{$employee->lastname}}, {{$employee->firstname}} {{$employee->middlename}}</a>
-              <a href="#" onclick="editEmployee({{$employee->id}},this)" class="fas fa-edit float-right" data-target="#bigModal" data-toggle="modal"></a>
-            </td>
+            <td>{{$employee->lastname}}, {{$employee->firstname}} {{$employee->middlename}}</td>
             <td>{{$employee->email}}</td>
             <td>{{$employee->contact}}</td>
+            <td>{{$employee->personnel_type}}</td>
             <td>
-              <button onclick="deleteEmployee({{$employee->id}},this)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash-alt"></i></button>
+              <button onclick="viewEmployee({{$employee->id}})" class="btn btn-primary" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
+              <button onclick="editEmployee({{$employee->id}},this)" class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
+              <button onclick="deleteEmployee({{$employee->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
             </td>
-            <td>{{$employee->gender}}</td>
           </tr>
         @endforeach
       </tbody>

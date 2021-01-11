@@ -21,7 +21,7 @@
     <a href="{{route('section.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Section</h5>
+                <h5 class="card-title">Sections</h5>
                 <h1>21</h1>
             </div>
         </div>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use DB;
+
 class EmployeesController extends Controller
 {
 	public function __construct()
@@ -40,25 +42,21 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-			$rules = User::$rules;
-			$validator = \Validator::make($request->all(),$rules);
-			
-			if($validator->fails())
-			{
-				return response()->json([
-					'status' => 'invalid',
-					'errors' => $validator->errors()->all()
-				]);
-			}
-			$employee = new User;
-			$this->fillEmployee($employee, $request);
-
-			return response()->json([
-				'status' => 'success',
-				'message' => 'Employee successfully saved!',
-				'id' => $employee->id
-			]);
-    }
+		$employee = User::create([
+            'firstname' => $request->firstname,
+            'middlename' => $request->middlename,
+			'lastname' => $request->lastname,
+			'contact' => $request->contact,
+			'address' => $request->address,
+			'gender' => $request->gender,
+			'birth_date' => $request->birth_date,
+			'email' => $request->email,
+            'personnel_type' => $request->personnel_type,
+            'password' => Hash::make($request->password),
+		]);
+		
+		return redirect()->route('employees.index');
+	}
 
     /**
      * Display the specified resource.

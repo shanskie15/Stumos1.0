@@ -38,7 +38,7 @@
           </div>
           <div class="row">
             <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Gender') }}</label>
-            <div class="col-sm-2 col-md-2 col-lg-2">
+            <div class="col-sm-4 col-md-4 col-lg-4">
               <div class="form-group">
               <select name="gender" class="form-control" id="gender" required>
                 <option value="male">Male</option>
@@ -47,7 +47,7 @@
               </div>
             </div>
             <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">Date of Birth</label>
-            <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="col-sm-4 col-md-4 col-lg-4">
                 <input id="birthdate" type="date" max="{{date('Y-m-d', strtotime('-21 years'))}}" class="form-control" name="birthdate"  required>
                 <span class="invalid-feedback" role="alert">
                   <strong></strong>

@@ -36,16 +36,16 @@
                   {{ $section->room_number }}
                 </td>
                 <td>
-                @foreach($users as $user)
-                  @if ($user->id == $section->user_id)
-                    {{ $user->firstname.' '.$user->lastname }}
-                  @endif
+                @foreach($employees as $employee)
+                  @if ($employee->id == $section->user_id)
+                    {{ $employee->firstname}} {{$employee->lastname }}
+                  @endif 
                 @endforeach
                 </td>
                 <td>
-                <button onclick="viewEmployee({{$section->id}})" class="btn btn-primary" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
-                <button class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
-                <button onclick="deleteEmployee({{$section->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+                <button onclick="viewSection({{$section->id}})" class="btn btn-primary" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
+                <button onclick="editSection({{$section->id}},this)" class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
+                <button onclick="deleteSection({{$section->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
                 </td>
               </tr>
             @endforeach
@@ -70,12 +70,28 @@
       <div class="modal-footer card-footer" style="background-color:#108790;color:white">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelNormal">Cancel</button>
         <button type="button" class="btn btn-primary" id="saveNormal">Save changes</button>
-        
       </div>
     </div>
   </div>
 </div>
-@include('admin.section.edit')
+{{-- Big modal --}}
+<div class="modal fade" id="bigModal" tabindex="-1" role="dialog" aria-labelledby="bigModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bigModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="bigModalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelBig">Cancel</button>
+        <button type="button" id="saveBig" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 

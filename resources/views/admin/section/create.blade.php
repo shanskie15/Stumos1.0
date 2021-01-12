@@ -11,15 +11,25 @@
                 <div class="row">
                     <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Section Name') }}</label>
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                    <div class="form-group">
-                        <input class="form-control" name="section_name" type="text" placeholder="{{ __('Section Name') }}" required />
-                    </div>
+                        <div class="form-group">
+                            <input class="form-control" name="section_name" type="text" placeholder="{{ __('Section Name') }}" required />
+                        </div>
                     </div>
                     <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Room Number') }}</label>
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                    <div class="form-group">
-                        <input class="form-control" name="room_number" type="text" placeholder="{{ __('Room Number') }}" required />
+                        <div class="form-group">
+                            <input class="form-control" name="room_number" type="text" placeholder="{{ __('Room Number') }}" required />
+                        </div>
                     </div>
+                    <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Teacher/Adviser') }}</label>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <select name="user_id" class="form-control">
+                                @foreach($employees as $employee)
+                                    <option value="{{$employee->id}}">{{$employee->firstname}} {{$employee->lastname}}</option>
+                                @endforeach
+                            </select>   
+                        </div>
                     </div>
                 </div>
                 <div class="row">

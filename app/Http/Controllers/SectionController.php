@@ -20,8 +20,8 @@ class SectionController extends Controller
      */
     public function index(Section $model)
     {
-        $users = User::where('personnel_type','teacher')->get();
-        return view('admin.section.index',['sections' => $model->paginate(15)],compact('users'));
+        $employees = User::where('personnel_type','teacher')->get();
+        return view('admin.section.index',['sections' => $model->paginate(15)],compact('employees'));
     }
 
     /**
@@ -31,7 +31,8 @@ class SectionController extends Controller
      */
     public function create()
     {
-        return view('admin.section.create');
+        $employees = User::where('personnel_type','teacher')->get();
+        return view('admin.section.create',compact('employees'));
     }
 
     /**
@@ -44,24 +45,69 @@ class SectionController extends Controller
     {
         $section = Section::create([
             'section_name' => $request->section_name,
-            'room_number' => $request->room_number
+            'room_number' => $request->room_number,
+            'user_id' => $request->user_id,
         ]);
 
         return redirect()->route('section.index');
     }
 
+    public function edit($id)
+    {
+      $section = Section::find($id);
+      $employees = User::where('personnel_type','teacher')->get();
+			return view('admin.section.edit',compact('section', 'employees'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $rules = Section::$rules;
+        $rules['email'] .= ',' . $id;
+        $rules['contact'] .= ',' . $id;
+
+        $validator = \Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            return response()->json([
+                'status' => 'invalid',
+                'errors' => $validator->errors()->all()
+            ]);
+        }
+        $section = Section::find($id);
+        $this->fillSection($section,$request);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Section updated!'
+        ]);
+	}
+		
+    private function fillSection($section,$request)
+    {
+        $section->section_name = $request->section_name;
+        $section->room_number= $request->room_number;
+        $section->user_id = $request->user_id;
+        $section->save();
+    }
+    
     /**
      * Display the specified resource.
      *
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $section = Section::find($id);
-        $users = User::where('personnel_type','teacher')->get();
-        return view('admin.section.edit', compact('section','users'));
-    }
+    // public function edit($id)
+    // {
+    //     $section = Section::find($id);
+    //     $users = User::where('personnel_type','teacher')->get();
+    //     return view('admin.section.edit', compact('section','users'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -69,9 +115,10 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show($id)
     {
-        //
+        $section = Section::find($id);
+        return view('admin.section.show', compact('section'));
     }
 
     /**
@@ -81,20 +128,20 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'section_name'=>'required',
-            'room_number'=>'required'
-        ]);
-        $section = Section::find($id);
-        $section->section_name = $request->get('section_name');
-        $section->room_number = $request->get('room_number');
-        $section->user_id = $request->get('user_id');
-        $section->save();
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'section_name'=>'required',
+    //         'room_number'=>'required'
+    //     ]);
+    //     $section = Section::find($id);
+    //     $section->section_name = $request->get('section_name');
+    //     $section->room_number = $request->get('room_number');
+    //     $section->user_id = $request->get('user_id');
+    //     $section->save();
         
-        return redirect()->route('section.index')->with('success','Section updated successfully');
-    }
+    //     return redirect()->route('section.index')->with('success','Section updated successfully');
+    // }
 
     /**
      * Remove the specified resource from storage.

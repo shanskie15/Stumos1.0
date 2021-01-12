@@ -18,11 +18,9 @@ $(document).ready(function(){
   });
 });
 // View employee
-  function viewEmployee(id)
+  function viewSection(id)
   {
-    console.log('ID',id)
     $(document).ready(function(){
-      console.log('URL',"{{url('section')}}/"+id)
       $.get("{{url('section')}}/"+id, function(data,status){
         $('#bigModalLabel').html('Section Information');
         $('#bigModalBody').html(data);
@@ -86,17 +84,21 @@ $(document).ready(function(){
   // edit employee
   function editSection(id,elem)
   {
-    $.get("{{url('section')}}/"+id+"/edit",function(data,status){
-      $('#bigModalLabel').html('Edit section');
-      $('#bigModalBody').html(data);
-      $('#saveBig').show();
-      $('#cancelBig').show();
-      $('#saveBig').unbind();
-      $('#saveBig').on('click',function(){
-        if(null == elem){
-          elem = findElem(id);
-        }
-        updateSection(id,elem);
+    console.log('ID',id)
+    $(document).ready(function(){
+      $.get("{{url('section')}}/"+id+"/edit",function(data,status){
+        console.log('URL',"{{url('section')}}/"+id+"/edit")
+        $('#bigModalLabel').html('Edit Section');
+        $('#bigModalBody').html(data);
+        $('#saveBig').show();
+        $('#cancelBig').show();
+        $('#saveBig').unbind();
+        $('#saveBig').on('click',function(){
+          if(null == elem){
+            elem = findElem(id);
+          }
+          updateSection(id,elem);
+        });
       });
     });
   }
@@ -112,15 +114,15 @@ $(document).ready(function(){
     return $(row).children('td').get(0);
   }
   // update employee in the database
-  function updateEmployee(id,elem)
+  function updateSection(id,elem)
   {
-    var employee = getData();
-    alert(JSON.stringify(employee));
+    var section = getData();
+    alert(JSON.stringify(section));
     resetErrors();
     $.ajax({
-      url: "{{url('employees')}}/"+id,
+      url: "{{url('section')}}/"+id,
       type: 'PUT',
-      data: employee,
+      data: section,
       success:function(result){
         if('invalid' == result.status){
           showErrors(result.errors);
@@ -134,7 +136,7 @@ $(document).ready(function(){
     // update row in table
     function updateRow()
     {
-      table.row($(elem).parents('tr')).data(fillRowData(employee,id)).invalidate().draw();
+      table.row($(elem).parents('tr')).data(fillRowData(section,id)).invalidate().draw();
     }
 
   }

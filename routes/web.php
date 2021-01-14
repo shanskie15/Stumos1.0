@@ -53,12 +53,12 @@ Route::middleware(['admin_type'])->group(function () {
 /*END TEACHER PANEL*/
 
 /*COUNSELOR PANEL*/
-// Route::middleware(['counselor_type'])->group(function () {
-//     Route::resource('counselor', 'CounselorController');
-//     Route::prefix('counselor')->group(function () {
-//         Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
-//     });
-// });
+    Route::middleware(['counselor_type'])->group(function () {
+    Route::resource('counselor', 'CounselorController');
+        Route::prefix('counselor')->group(function () {
+        Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
+     });
+ });
 /*END COUNSELOR PANEL*/
 
 /*HEALTH CARE PROFESSIONAL PANEL*/

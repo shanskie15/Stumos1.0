@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\Personnels;
+namespace App\Http\Middleware\Employee;
 
 use Closure;
 

@@ -44,12 +44,12 @@ Route::middleware(['admin_type'])->group(function () {
 /*END ADMIN PANEL*/
 
 /*TEACHER PANEL*/
-// Route::middleware(['teacher_type'])->group(function () {
-//     Route::resource('teacher', 'TeacherController');
-//     Route::prefix('teacher')->group(function () {
-//         Route::get('/', ['as' => 'teacher.index','uses' => 'TeacherController@index']);
-//     });
-// });
+Route::middleware(['teacher_type'])->group(function () {
+    Route::resource('teacher', 'TeacherController');
+    Route::prefix('teacher')->group(function () {
+        Route::get('/', ['as' => 'teacher.index','uses' => 'TeacherController@index']);
+    });
+});
 /*END TEACHER PANEL*/
 
 /*COUNSELOR PANEL*/
@@ -62,13 +62,12 @@ Route::middleware(['admin_type'])->group(function () {
 /*END COUNSELOR PANEL*/
 
 /*HEALTH CARE PROFESSIONAL PANEL*/
-// Route::middleware(['healthcare_type'])->group(function () {
-//     Route::resource('healthcareprofessional', 'HealthCareController');
-//     Route::prefix('healthcareprofessional')->group(function () {
-//         Route::get('/',['as' => 'healthcareprofessional.index','uses' => 'HealthCareController@index']);
-//     });
-    
-// });
+Route::middleware(['healthcare_type'])->group(function () {
+    Route::resource('healthcareprofessional', 'HealthCareController');
+    Route::prefix('healthcareprofessional')->group(function () {
+        Route::get('/',['as' => 'healthcareprofessional.index','uses' => 'HealthCareController@index']);
+    });
+});
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 
 /*LIBRARIAN PANEL*/

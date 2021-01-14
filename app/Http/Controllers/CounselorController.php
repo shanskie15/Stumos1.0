@@ -14,7 +14,7 @@ class CounselorController extends Controller
      */
     public function index()
     {
-        return view('counselor.admin_layout');
+        return view('counselor.counselor_layout');
     }
 
     /**

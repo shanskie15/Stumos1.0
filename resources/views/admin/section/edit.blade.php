@@ -25,7 +25,7 @@
     <div class="form-group row">
       <label for="user_id" class="col-md-4 col-form-label text-md-right">Teacher/Adviser</label>
       <div class="col-md-6">
-          <select name="user_id" class="form-control">
+          <select name="user_id" id="user_id" class="form-control">
             @foreach($employees as $employee)
               <option value="{{ $employee->id }}">{{ $employee->firstname}} {{$employee->lastname}}</option>
             @endforeach

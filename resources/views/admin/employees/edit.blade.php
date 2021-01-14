@@ -87,15 +87,4 @@
           </span>
       </div>
     </div>
-    
-    <div class="form-group row">
-      <label for="salary" class="col-md-4 col-form-label text-md-right">Salary</label>
-      <div class="col-md-6">
-          <input id="salary" type="number" value="{{$employee->salary}}" class="form-control" name="salary" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
   </form>

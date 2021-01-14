@@ -30,9 +30,19 @@
           </div>
           <div class="row">
             <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Address') }}</label>
-            <div class="col-sm-10 col-md-10 col-lg-10">
+            <div class="col-sm-5 col-md-5 col-lg-5">
               <div class="form-group">
                 <input class="form-control" name="address" type="text" placeholder="{{ __('Address') }}" required/>
+              </div>
+            </div>
+            <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Section') }}</label>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                <select name="section_id" class="form-control">
+                    @foreach($sections as $section)
+                        <option value="{{$section->id}}">{{$section->section_name}} {{$section->room_number}}</option>
+                    @endforeach
+                </select> 
               </div>
             </div>
           </div>

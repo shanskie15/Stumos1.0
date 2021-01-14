@@ -58,6 +58,7 @@ class StudentController extends Controller
             'contact' => $request->contact,
             'parent_name' => $request->parent_name,
             'pcontact' => $request->pcontact,
+            'section_id' => $request->section_id,
         ]);
 
         return redirect()->route('student.index');

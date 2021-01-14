@@ -117,7 +117,7 @@ $(document).ready(function(){
   function updateSection(id,elem)
   {
     var section = getData();
-    alert(JSON.stringify(section));
+    // alert(JSON.stringify(section));
     resetErrors();
     $.ajax({
       url: "{{url('section')}}/"+id,

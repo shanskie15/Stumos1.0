@@ -14,7 +14,7 @@ class HealthcareController extends Controller
      */
     public function index()
     {
-        return view('clinic.clinic_layout');
+        return view('clinic.clinic_home');
     }
 
     /**

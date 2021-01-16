@@ -17,11 +17,7 @@ class Student extends Model
         'contact',
         'parent_name',
         'pcontact',
-<<<<<<< HEAD
-        'section_id'
-=======
         'section_id',
->>>>>>> 0b7138e0f8fa37fdd1b8f9a33cc1fdd684a9d108
     ];
 
     public function section(){

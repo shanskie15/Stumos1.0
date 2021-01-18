@@ -15,10 +15,10 @@
                         <h5>
                           {{$employee->firstname}} {{$employee->middlename[0]}}. {{$employee->lastname}}
                         </h5>
-                        <h6>
-                          {{$employee->position}}
+                        <h6 class="text-uppercase">
+                            {{$employee->personnel_type}}
                         </h6>
-                        <p class="proile-rating">AGENT</p>
+                        <p class="proile-rating">EMPLOYEE</p>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -36,7 +36,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="profile-work">
-                <p>DIVISIONS</p>
+                <p>Personnel Role</p>
+                <p>{{$employee->personnel_type}}</p>
+                
             </div>
         </div>
         <div class="col-md-8">

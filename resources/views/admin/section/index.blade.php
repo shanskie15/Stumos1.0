@@ -3,16 +3,22 @@
     
 @endsection
 @section('content-body')
-@include('admin.section.create')
 <div class="card" style="margin:2%;">
   <div class="card-header">
-    Section
+  <div class="row">
+      <div class="col-sm-10 col-md-10 col-lg-10">
+        <p>Sections</p>
+      </div>
+      <div class="col-sm-2 col-md-2 col-lg-2">
+        <a href="{{route('section.create')}}"><button class="btn btn-primary">Create Section</button></a>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="table-responsive">
         <table class="table" id="sectionTable">
-          <thead class=" text-primary">
+          <thead class="text-primary">
             <th>
                 {{ __('Section Name') }}
             </th>
@@ -43,9 +49,9 @@
                 @endforeach
                 </td>
                 <td>
-                <button onclick="viewSection({{$section->id}})" class="btn btn-primary" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
-                <button onclick="editSection({{$section->id}},this)" class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
-                <button onclick="deleteSection({{$section->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+                <a href="{{route('section.show', $section->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
+                <a href="{{route('section.edit', $section->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
+                <a href=""><button class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button></a>
                 </td>
               </tr>
             @endforeach

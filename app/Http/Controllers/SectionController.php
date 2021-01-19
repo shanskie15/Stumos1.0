@@ -54,61 +54,12 @@ class SectionController extends Controller
 
     public function edit($id)
     {
-      $section = Section::find($id);
-      $employees = User::where('personnel_type','teacher')->get();
-			return view('admin.section.edit',compact('section', 'employees'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $rules = Section::$rules;
-        $rules['email'] .= ',' . $id;
-        $rules['contact'] .= ',' . $id;
-
-        $validator = \Validator::make($request->all(),$rules);
-        if($validator->fails())
-        {
-            return response()->json([
-                'status' => 'invalid',
-                'errors' => $validator->errors()->all()
-            ]);
-        }
         $section = Section::find($id);
-        $this->fillSection($section,$request);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Section updated!'
-        ]);
-	}
-		
-    private function fillSection($section,$request)
-    {
-        $section->section_name = $request->section_name;
-        $section->room_number= $request->room_number;
-        $section->user_id = $request->user_id;
-        $section->save();
+        $employees = User::where('personnel_type','teacher')->get();
+		return view('admin.section.edit',compact('section', 'employees'));
     }
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Section  $section
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id)
-    // {
-    //     $section = Section::find($id);
-    //     $users = User::where('personnel_type','teacher')->get();
-    //     return view('admin.section.edit', compact('section','users'));
-    // }
 
+  
     /**
      * Show the form for editing the specified resource.
      *
@@ -118,7 +69,8 @@ class SectionController extends Controller
     public function show($id)
     {
         $section = Section::find($id);
-        return view('admin.section.show', compact('section'));
+        $employees = User::where('personnel_type','teacher')->get();
+        return view('admin.section.show', compact('section', 'employees'));
     }
 
     /**
@@ -128,20 +80,20 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'section_name'=>'required',
-    //         'room_number'=>'required'
-    //     ]);
-    //     $section = Section::find($id);
-    //     $section->section_name = $request->get('section_name');
-    //     $section->room_number = $request->get('room_number');
-    //     $section->user_id = $request->get('user_id');
-    //     $section->save();
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'section_name'=>'required',
+            'room_number'=>'required'
+        ]);
+        $section = Section::find($id);
+        $section->section_name = $request->get('section_name');
+        $section->room_number = $request->get('room_number');
+        $section->user_id = $request->get('user_id');
+        $section->save();
         
-    //     return redirect()->route('section.index')->with('success','Section updated successfully');
-    // }
+        return redirect()->route('section.index')->with('success','Section updated successfully');
+    }
 
     /**
      * Remove the specified resource from storage.

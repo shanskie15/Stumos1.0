@@ -3,16 +3,22 @@
     
 @endsection
 @section('content-body')
-@include('admin.student.create')
 <div class="card" style="margin:2%;">
   <div class="card-header">
-    Student
-  </div>
+    <div class="row">
+        <div class="col-sm-10 col-md-10 col-lg-10">
+          Student
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+          <a href="{{route('student.create')}}"><button class="btn btn-primary">Create Student</button></a>
+        </div>
+      </div>
+    </div>
   <div class="card-body">
     <div class="row">
       <div class="table-responsive">
         <table class="table" id="studentTable">
-          <thead class=" text-primary">
+          <thead class="text-primary">
             <th>
                 {{ __('Name') }}
             </th>
@@ -23,9 +29,6 @@
               {{ __('Section') }}
             </th>
             <th>
-              {{ __('Teacher/Adviser') }}
-            </th>
-            <th class="text-right">
               {{ __('Actions') }}
             </th>
           </thead>
@@ -33,33 +36,22 @@
             @foreach($students as $student)
               <tr>
                 <td>
-                  {{ $student->firstname.' '.$student->lastname }}
+                   {{$student->lastname}}, {{$student->firstname}} {{$student->middlename[0]}}.
                 </td>
-                <td>
+                <td class="text-uppercase">
                   {{ $student->year }}
                 </td>
                 <td>
                 @foreach($sections as $section)
                   @if ($section->id == $student->section_id)
                     {{ $section->section_name }} 
-                </td>
-                <td>
-                    @foreach($users as $user)
-                      @if ($user->id == $section->user_id)
-                        {{ $user->firstname}} {{$user->lastname }}
-                      @endif
-                    @endforeach
                   @endif
                 @endforeach
                 </td>
-                <td class="text-right">
-                    <form action="{{ route('student.destroy', $student->id) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <a href="#" class="btn btn-primary" type="button">View</a>
-                        <button class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                <td>
+                <a href="{{route('student.show', $student->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
+                <a href="{{route('student.edit', $student->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
+                <a href=""><button class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button></a>
                 </td>
               </tr>
             @endforeach

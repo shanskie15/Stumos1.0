@@ -19,41 +19,35 @@
       <div class="table-responsive">
         <table class="table" id="studentTable">
           <thead class="text-primary">
-            <th>
-                {{ __('Name') }}
-            </th>
-            <th>
-              {{ __('Year') }}
-            </th>
-            <th>
-              {{ __('Section') }}
-            </th>
-            <th>
-              {{ __('Actions') }}
-            </th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Section</th>
+            <th style="width:30%">Actions</th>
           </thead>
           <tbody>
             @foreach($students as $student)
-              <tr>
-                <td>
-                   {{$student->lastname}}, {{$student->firstname}} {{$student->middlename[0]}}.
-                </td>
-                <td class="text-uppercase">
-                  {{ $student->year }}
-                </td>
-                <td>
-                @foreach($sections as $section)
-                  @if ($section->id == $student->section_id)
-                    {{ $section->section_name }} 
-                  @endif
-                @endforeach
-                </td>
-                <td>
-                <a href="{{route('student.show', $student->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
-                <a href="{{route('student.edit', $student->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-                <a href=""><button class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button></a>
-                </td>
-              </tr>
+              @if($student->delete != 1)
+                <tr>
+                  <td>
+                    {{$student->lastname}}, {{$student->firstname}} {{$student->middlename[0]}}.
+                  </td>
+                  <td class="text-uppercase">
+                    {{ $student->year }}
+                  </td>
+                  <td>
+                  @foreach($sections as $section)
+                    @if ($section->id == $student->section_id)
+                      {{ $section->section_name }} 
+                    @endif
+                  @endforeach
+                  </td>
+                  <td>
+                  <a href="{{route('student.show', $student->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
+                  <a href="{{route('student.edit', $student->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
+                  <button onclick="deleteStudent({{$student->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+                  </td>
+                </tr>
+              @endif
             @endforeach
           </tbody>
         </table>

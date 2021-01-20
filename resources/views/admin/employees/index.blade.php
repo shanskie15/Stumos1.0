@@ -26,16 +26,18 @@
       </thead>
       <tbody>
         @foreach ($employees as $employee)
-          <tr id="{{$employee->id}}">
-            <td>{{$employee->lastname}}, {{$employee->firstname}} {{$employee->middlename[0]}}</td>
-            <td>{{$employee->email}}</td>
-            <td>{{$employee->personnel_type}}</td>
-            <td>
-              <a href="{{route('employees.show', $employee->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
-              <a href="{{route('employees.edit', $employee->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-              <a href=""><button class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button></a>
-            </td>
-          </tr>
+          @if($employee->delete != 1)
+            <tr id="{{$employee->id}}">
+              <td>{{$employee->lastname}}, {{$employee->firstname}} {{$employee->middlename[0]}}</td>
+              <td>{{$employee->email}}</td>
+              <td class="text-uppercase">{{$employee->personnel_type}}</td>
+              <td>
+                <a href="{{route('employees.show', $employee->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
+                <a href="{{route('employees.edit', $employee->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
+                <button onclick="deleteEmployee({{$employee->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+              </td>
+            </tr>
+          @endif
         @endforeach
       </tbody>
     </table>

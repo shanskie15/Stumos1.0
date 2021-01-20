@@ -103,9 +103,23 @@ class SectionController extends Controller
      */
     public function destroy($id)
     {
-        $section = Section::find($id);
-        $section->delete();
+		$section = Section::find($id);
+		$section->delete();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Section deleted from the database!'
+		]);
+	}
+	// soft delete
+	public function delete($id)
+	{
+		$section = Section::find($id);
 
-        return redirect()->route('section.index')->with('success', 'Section deleted!');
-    }
+		$section->deleted = '1';
+		$section->save();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Section removed from the list.'
+		]);
+	}
 }

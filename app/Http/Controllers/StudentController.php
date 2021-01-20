@@ -122,8 +122,22 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::find($id);
-        $student->delete();
-        return redirect()->route('student.index')->with('success', 'Student Account deleted!');
-    }
+		$student = Student::find($id);
+		$student->delete();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Student deleted from the database!'
+		]);
+	}
+	// soft delete
+	public function delete($id)
+	{
+		$student = Student::find($id);
+		$student->deleted = '1';
+		$student->save();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Student removed from the list.'
+		]);
+	}
 }

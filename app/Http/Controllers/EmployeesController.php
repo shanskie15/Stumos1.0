@@ -42,6 +42,11 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
+		$request->validate([
+            'firstname'=>'required',
+            'middlename'=>'required',
+            'lastname'=>'required'
+        ]);
 		$employee = User::create([
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
@@ -91,7 +96,12 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-			
+		$request->validate([
+            'firstname'=>'required',
+            'middlename'=>'required',
+            'lastname'=>'required'
+        ]);
+        $employee = User::find($id);
 		$employee->firstname = $request->firstname;
 		$employee->middlename = $request->middlename;
 		$employee->lastname = $request->lastname;
@@ -114,37 +124,23 @@ class EmployeesController extends Controller
 		// hard delete
     public function destroy($id)
     {
-		$check = Division::where('agent_id',$id)->first();
-		if( null == $check){
-			$employee = User::find($id);
-			$employee->delete();
-			return response()->json([
-				'status' => 'success',
-				'message' => 'Employee deleted from the database!'
-			]);
-		}
+		$employee = User::find($id);
+		$employee->delete();
 		return response()->json([
-			'status' => 'error',
-			'message' => 'Employee cannot be deleted from the database!'
+			'status' => 'success',
+			'message' => 'Employee deleted from the database!'
 		]);
 	}
 	// soft delete
 	public function delete($id)
 	{
-		$check = Division::where('deleted','0')->where('agent_id',$id)->first();
-		if(null == $check){
-			$employee = User::find($id);
+		$employee = User::find($id);
 
-			$employee->deleted = '1';
-			$employee->save();
-			return response()->json([
-				'status' => 'success',
-				'message' => 'Employee removed from the list.'
-			]);
-		}
+		$employee->deleted = '1';
+		$employee->save();
 		return response()->json([
-			'status' => 'error',
-			'message' => 'Employee cannot be removed from the list!'
+			'status' => 'success',
+			'message' => 'Employee removed from the list.'
 		]);
 	}
 }

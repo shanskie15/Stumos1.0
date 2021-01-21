@@ -71,12 +71,13 @@ Route::middleware(['healthcare_type'])->group(function () {
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 
 /*LIBRARIAN PANEL*/
-// Route::middleware(['librarian_type'])->group(function () {
-//     Route::resource('librarian', 'LibrarianController');
-//     Route::prefix('librarian')->group(function () {
-//         Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
-//     });
-// });
+ Route::middleware(['librarian_type'])->group(function () {
+     Route::resource('librarian', 'LibrarianController');
+     Route::prefix('librarian')->group(function () {
+         Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
+     });
+     Route::get('/borrow','LibrarianController@borrowindex');
+ });
 /*END LIBRARIAN PANEL*/
 
 /*PRINCIPAL PANEL*/

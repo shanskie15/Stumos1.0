@@ -44,12 +44,12 @@ Route::middleware(['admin_type'])->group(function () {
 /*END ADMIN PANEL*/
 
 /*TEACHER PANEL*/
-Route::middleware(['teacher_type'])->group(function () {
-    Route::resource('teacher', 'TeacherController');
-    Route::prefix('teacher')->group(function () {
-        Route::get('/', ['as' => 'teacher.index','uses' => 'TeacherController@index']);
-    });
-});
+// Route::middleware(['teacher_type'])->group(function () {
+//     Route::resource('teacher', 'TeacherController');
+//     Route::prefix('teacher')->group(function () {
+//         Route::get('/', ['as' => 'teacher.index','uses' => 'TeacherController@index']);
+//     });
+// });
 /*END TEACHER PANEL*/
 
 /*COUNSELOR PANEL*/
@@ -58,6 +58,9 @@ Route::middleware(['teacher_type'])->group(function () {
         Route::prefix('counselor')->group(function () {
         Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
      });
+     Route::get('/badrecord', 'CounselorController@createBadRecord');
+     Route::get('/counsel', 'CounselorController@createCounsel');
+     Route::post('/storeBad', 'CounselorController@storeBad');
  });
 /*END COUNSELOR PANEL*/
 
@@ -73,12 +76,13 @@ Route::middleware(['healthcare_type'])->group(function () {
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 
 /*LIBRARIAN PANEL*/
-// Route::middleware(['librarian_type'])->group(function () {
-//     Route::resource('librarian', 'LibrarianController');
-//     Route::prefix('librarian')->group(function () {
-//         Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
-//     });
-// });
+ Route::middleware(['librarian_type'])->group(function () {
+     Route::resource('librarian', 'LibrarianController');
+     Route::prefix('librarian')->group(function () {
+         Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
+     });
+     Route::get('/borrow','LibrarianController@borrowindex');
+ });
 /*END LIBRARIAN PANEL*/
 
 /*PRINCIPAL PANEL*/

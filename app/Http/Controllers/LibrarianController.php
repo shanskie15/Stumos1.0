@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Librarian;
 use Illuminate\Http\Request;
+use App\Borrow;
+use DB;
 
 class LibrarianController extends Controller
 {
@@ -14,7 +16,10 @@ class LibrarianController extends Controller
      */
     public function index()
     {
-        //
+        
+        return view('librarian.librarian_home');
+        
+		
     }
 
     /**
@@ -22,9 +27,16 @@ class LibrarianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function borrowindex()
+    {
+         $borrows = Borrow::all();
+        return view('librarian.borrow.index',compact('borrows'));
+       
+		
+    }
     public function create()
     {
-        //
+        return view('librarian.borrow.create');
     }
 
     /**
@@ -35,7 +47,23 @@ class LibrarianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'fname'=>'required',
+            'mname'=>'required',
+            'lname'=>'required'
+        ]);
+
+        $borrow = Borrow::create([
+        'fname'=>$request->fname,
+        'mname'=>$request->mname,
+        'lname'=>$request->lname,
+        'fnamelib'=>$request->fnamelib,
+        'contact'=>$request->contact,
+        'bookname'=>$request->bookname,
+        'datetoreturn'=>$request->datetoreturn,
+        ]);  
+        return redirect()->route('librarian.index');
     }
 
     /**
@@ -78,8 +106,13 @@ class LibrarianController extends Controller
      * @param  \App\Librarian  $librarian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Librarian $librarian)
+    public function destroy($id)
     {
-        //
+        $borrow = Borrow::find($id);
+		$borrow->delete();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Employee deleted from the database!'
+		]);
     }
 }

@@ -48,16 +48,16 @@ class EmployeesController extends Controller
             'lastname'=>'required'
         ]);
 		$employee = User::create([
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename,
+      'firstname' => $request->firstname,
+      'middlename' => $request->middlename,
 			'lastname' => $request->lastname,
 			'contact' => $request->contact,
 			'address' => $request->address,
 			'gender' => $request->gender,
 			'birth_date' => $request->birth_date,
 			'email' => $request->email,
-            'personnel_type' => $request->personnel_type,
-            'password' => Hash::make($request->password),
+      'personnel_type' => $request->personnel_type,
+      'password' => Hash::make($request->password),
 		]);
 		
 		return redirect()->route('employees.index');
@@ -102,17 +102,19 @@ class EmployeesController extends Controller
             'lastname'=>'required'
         ]);
         $employee = User::find($id);
-		$employee->firstname = $request->firstname;
-		$employee->middlename = $request->middlename;
-		$employee->lastname = $request->lastname;
-		$employee->email = $request->email;
-		$employee->gender = $request->gender;
-		$employee->birth_date = $request->birth_date;
-		$employee->contact = $request->contact;
-		$employee->address = $request->address;
-		$employee->personnel_type = $request->personnel_type;
-		$employee->password = Hash::make($request->password);
-		$employee->save();
+        $employee->firstname = $request->firstname;
+        $employee->middlename = $request->middlename;
+        $employee->lastname = $request->lastname;
+        $employee->email = $request->email;
+        $employee->gender = $request->gender;
+        $employee->birth_date = $request->birth_date;
+        $employee->contact = $request->contact;
+        $employee->address = $request->address;
+        $employee->personnel_type = $request->personnel_type;
+        $employee->password = Hash::make($request->password);
+        $employee->save();
+
+        return redirect()->route('employees.index');
 	}
 
     /**

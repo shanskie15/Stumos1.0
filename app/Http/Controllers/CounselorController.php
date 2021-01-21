@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Counselor;
 use Illuminate\Http\Request;
+use App\BadRecord;
 
 class CounselorController extends Controller
 {
@@ -22,6 +23,15 @@ class CounselorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function createBadRecord()
+    {
+        return view('counselor.badrecord.create');
+    } 
+    public function createCounsel()
+    {
+        return view('counselor.counsel.create');
+    }
     public function create()
     {
         //
@@ -33,6 +43,21 @@ class CounselorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeBad(Request $request)
+    {
+		$request->validate([
+            'bad_deed'=>'required',
+            'description'=>'required',
+        ]);
+		$badrecord = BadRecord::create([
+            'user_id' => $request->firstname,
+            'student_id' => $request->middlename,
+			'bad_deed' => $request->lastname,
+			'description' => $request->contact,
+		]);
+		
+		return view('badrecord');
+	}
     public function store(Request $request)
     {
         //

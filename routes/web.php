@@ -58,6 +58,9 @@ Route::middleware(['teacher_type'])->group(function () {
         Route::prefix('counselor')->group(function () {
         Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
      });
+     Route::get('/badrecord', 'CounselorController@createBadRecord');
+     Route::get('/counsel', 'CounselorController@createCounsel');
+     Route::post('/storeBad', 'CounselorController@storeBad');
  });
 /*END COUNSELOR PANEL*/
 

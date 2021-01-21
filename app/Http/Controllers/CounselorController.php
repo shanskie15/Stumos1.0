@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Counselor;
 use Illuminate\Http\Request;
+use App\BadRecord;
+use App\Student;
 
 class CounselorController extends Controller
 {
@@ -14,7 +16,9 @@ class CounselorController extends Controller
      */
     public function index()
     {
-        return view('counselor.counselor_home');
+        $counselors = Counselor::where('deleted','0')->get();
+        $students = Student::where('deleted','0')->get();
+		return view('counselor.counselor_home',compact('counselors','students'));
     }
 
     /**
@@ -22,6 +26,17 @@ class CounselorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function createBadRecord()
+    {
+        $counselors = Counselor::where('deleted','0')->get();
+        $students = Student::where('deleted','0')->get();
+        return view('counselor.badrecord.create',compact('counselors','students'));
+    } 
+    public function createCounsel()
+    {
+        return view('counselor.counsel.create');
+    }
     public function create()
     {
         //
@@ -33,9 +48,27 @@ class CounselorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeBad(Request $request)
+    {
+		$request->validate([
+            'bad_deed'=>'required',
+            'description'=>'required',
+        ]);
+		$badrecord = BadRecord::create([
+            'user_id' => $request->firstname,
+            'student_id' => $request->middlename,
+			'bad_deed' => $request->lastname,
+			'description' => $request->contact,
+		]);
+		
+		return view('badrecord');
+	}
     public function store(Request $request)
     {
-        //
+		$counselor = Counselor::create([
+            'student_id' => $request->student_id,
+        ]);
+        return redirect()->route('counselor.index');
     }
 
     /**

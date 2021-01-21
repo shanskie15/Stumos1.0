@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function(){
-  $('#sectionTable').DataTable(
+  $('#studentTable').DataTable(
     {
       "columns": [
             { "data": "Name" },

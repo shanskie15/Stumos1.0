@@ -52,7 +52,7 @@
                   <td>
                   <a href="{{route('section.show', $section->id)}}"><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
                   <a href="{{route('section.edit', $section->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-                  <button onclick="deleteStudent({{$student->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+                  <button onclick="deleteStudent({{$section->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
                   </td>
                 </tr>
               @endif

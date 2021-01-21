@@ -23,9 +23,8 @@ class StudentController extends Controller
      */
     public function index(Student $model)
     {
-        $users = User::where('personnel_type','teacher')->get();
         $sections = Section::all();
-        return view('admin.student.index', ['students' => $model->paginate(15)], compact('users','sections'));
+        return view('admin.student.index', ['students' => $model->paginate(15)], compact('sections'));
     }
 
     /**
@@ -35,7 +34,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create');
+        $sections = Section::all();
+        return view('admin.student.create', compact('sections'));
     }
 
     /**
@@ -106,6 +106,14 @@ class StudentController extends Controller
         return redirect()->route('student.index')->with('success','student updated successfully');
     }
 
+    public function show($id)
+    {
+        $student = Student::find($id);
+        // $users = User::where('personnel_type','teacher')->get();
+        $sections = Section::all();
+        return view('admin.student.show', compact('student','sections'));
+    }
+
     /**
      * Remove the specified student from storage
      *
@@ -114,9 +122,22 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::find($id);
-        $student->delete();
-
-        return redirect()->route('student.index')->with('success', 'Student Account deleted!');
-    }
+		$student = Student::find($id);
+		$student->delete();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Student deleted from the database!'
+		]);
+	}
+	// soft delete
+	public function delete($id)
+	{
+		$student = Student::find($id);
+		$student->deleted = '1';
+		$student->save();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Student removed from the list.'
+		]);
+	}
 }

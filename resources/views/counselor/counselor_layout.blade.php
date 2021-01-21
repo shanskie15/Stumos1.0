@@ -7,7 +7,7 @@
             @include('counselor.navbar.nav')
             <div class="content">
                 <div class="card">
-                    <div class="card-body col-lg-12 col-md-12 col-sm-12 card-body-admin">
+                    <div class="card-body col-lg-12 col-md-12 col-sm-12">
                         @yield('counselor-body')
                     </div>
                 </div>

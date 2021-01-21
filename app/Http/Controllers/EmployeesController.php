@@ -42,6 +42,11 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
+		$request->validate([
+            'firstname'=>'required',
+            'middlename'=>'required',
+            'lastname'=>'required'
+        ]);
 		$employee = User::create([
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
@@ -66,11 +71,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-			$employee = User::find($id);
-			// $divisions = Division::where('agent_id',$id)->get();
-			// $clients = DB::table('divisions')->join('clients','clients.division_id','divisions.id')->where('clients.deleted','0')->where('divisions.agent_id',$id)->get ();
-			// $orders = DB::table('divisions')->join('clients','clients.division_id','divisions.id')->join('orders','orders.client_id','clients.id')->where('clients.deleted','0')->where('divisions.agent_id',$id)->get();
-			return view('admin.employees.show', compact('employee'));
+		$employee = User::find($id);
+		return view('admin.employees.show', compact('employee'));
     }
 
     /**
@@ -81,8 +83,8 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-      $employee = User::find($id);
-			return view('admin.employees.edit', compact('employee'));
+      	$employee = User::find($id);
+		return view('admin.employees.edit', compact('employee'));
     }
 
     /**
@@ -94,40 +96,24 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-			$rules = User::$rules;
-			$rules['email'] .= ',' . $id;
-			$rules['contact'] .= ',' . $id;
-
-			$validator = \Validator::make($request->all(),$rules);
-			if($validator->fails())
-			{
-				return response()->json([
-					'status' => 'invalid',
-					'errors' => $validator->errors()->all()
-				]);
-			}
-			$employee = User::find($id);
-			$this->fillEmployee($employee,$request);
-			return response()->json([
-				'status' => 'success',
-				'message' => 'Employee updated!'
-			]);
-		}
-		
-		private function fillEmployee($employee,$request)
-		{
-			$employee->firstname = $request->firstname;
-			$employee->middlename = $request->middlename;
-			$employee->lastname = $request->lastname;
-			$employee->email = $request->email;
-			$employee->gender = $request->gender;
-			$employee->birth_date = $request->birth_date;
-			$employee->contact = $request->contact;
-			$employee->address = $request->address;
-			$employee->personnel_type = $request->personnel_type;
-			$employee->password = Hash::make($request->password);
-			$employee->save();
-		}
+		$request->validate([
+            'firstname'=>'required',
+            'middlename'=>'required',
+            'lastname'=>'required'
+        ]);
+        $employee = User::find($id);
+		$employee->firstname = $request->firstname;
+		$employee->middlename = $request->middlename;
+		$employee->lastname = $request->lastname;
+		$employee->email = $request->email;
+		$employee->gender = $request->gender;
+		$employee->birth_date = $request->birth_date;
+		$employee->contact = $request->contact;
+		$employee->address = $request->address;
+		$employee->personnel_type = $request->personnel_type;
+		$employee->password = Hash::make($request->password);
+		$employee->save();
+	}
 
     /**
      * Remove the specified resource from storage.
@@ -138,37 +124,23 @@ class EmployeesController extends Controller
 		// hard delete
     public function destroy($id)
     {
-		$check = Division::where('agent_id',$id)->first();
-		if( null == $check){
-			$employee = User::find($id);
-			$employee->delete();
-			return response()->json([
-				'status' => 'success',
-				'message' => 'Employee deleted from the database!'
-			]);
-		}
+		$employee = User::find($id);
+		$employee->delete();
 		return response()->json([
-			'status' => 'error',
-			'message' => 'Employee cannot be deleted from the database!'
+			'status' => 'success',
+			'message' => 'Employee deleted from the database!'
 		]);
 	}
 	// soft delete
 	public function delete($id)
 	{
-		$check = Division::where('deleted','0')->where('agent_id',$id)->first();
-		if(null == $check){
-			$employee = User::find($id);
+		$employee = User::find($id);
 
-			$employee->deleted = '1';
-			$employee->save();
-			return response()->json([
-				'status' => 'success',
-				'message' => 'Employee removed from the list.'
-			]);
-		}
+		$employee->deleted = '1';
+		$employee->save();
 		return response()->json([
-			'status' => 'error',
-			'message' => 'Employee cannot be removed from the list!'
+			'status' => 'success',
+			'message' => 'Employee removed from the list.'
 		]);
 	}
 }

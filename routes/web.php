@@ -67,6 +67,8 @@ Route::middleware(['healthcare_type'])->group(function () {
     Route::prefix('healthcareprofessional')->group(function () {
         Route::get('/',['as' => 'healthcareprofessional.index','uses' => 'HealthCareController@index']);
     });
+    Route::get('/consultation','HealthCareController@consultation');
+    Route::get('/history','HealthCareController@history');
 });
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 

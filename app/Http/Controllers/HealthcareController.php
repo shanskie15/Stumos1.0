@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Healthcare;
+use App\Student;
 use Illuminate\Http\Request;
 
 class HealthcareController extends Controller
@@ -14,9 +15,18 @@ class HealthcareController extends Controller
      */
     public function index()
     {
-        return view('clinic.clinic_home');
+        $students = Student::where('deleted','0')->get();
+		return view('clinic.clinic_home',compact('students'));
     }
 
+    public function consultation()
+    {
+        return view('clinic.consultation.index');
+    }
+    public function history()
+    {
+        return view('clinic.history.history');
+    }
     /**
      * Show the form for creating a new resource.
      *

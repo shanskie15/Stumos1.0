@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="margin-bottom:10px;">
   <div class="container">
-    <a class="navbar-brand" href="{{ route('admin.index') }}">
+    <a class="navbar-brand" href="{{ route('healthcareprofessional.index') }}">
         {{ config('app.name', 'Stumos') }}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -18,9 +18,9 @@
             <a class="dropdown-item" href="/clients">Clients</a>
             </div>
         </li> -->
-        <li class="nav-item"><a href="" class="nav-link">Scan Student</a></li>
-        <li class="nav-item"><a href="" class="nav-link">Consultation</a></li>
-        <li class="nav-item"><a href="" class="nav-link">History</a></li>
+        <li class="nav-item"><a href="{{url('healthcareprofessional')}}" class="nav-link">Scan Student</a></li>
+        <li class="nav-item"><a href="{{url('consultation')}}" class="nav-link">Consultation</a></li>
+        <li class="nav-item"><a href="{{url('history')}}" class="nav-link">History</a></li>
     </ul>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Right Side Of Navbar -->

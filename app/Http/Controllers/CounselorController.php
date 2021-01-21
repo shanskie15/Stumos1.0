@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Counselor;
 use Illuminate\Http\Request;
 use App\BadRecord;
+use App\Student;
 
 class CounselorController extends Controller
 {
@@ -15,7 +16,9 @@ class CounselorController extends Controller
      */
     public function index()
     {
-        return view('counselor.counselor_home');
+        $counselors = Counselor::where('deleted','0')->get();
+        $students = Student::where('deleted','0')->get();
+		return view('counselor.counselor_home',compact('counselors','students'));
     }
 
     /**
@@ -26,7 +29,9 @@ class CounselorController extends Controller
 
     public function createBadRecord()
     {
-        return view('counselor.badrecord.create');
+        $counselors = Counselor::where('deleted','0')->get();
+        $students = Student::where('deleted','0')->get();
+        return view('counselor.badrecord.create',compact('counselors','students'));
     } 
     public function createCounsel()
     {
@@ -60,7 +65,10 @@ class CounselorController extends Controller
 	}
     public function store(Request $request)
     {
-        //
+		$counselor = Counselor::create([
+            'student_id' => $request->student_id,
+        ]);
+        return redirect()->route('counselor.index');
     }
 
     /**

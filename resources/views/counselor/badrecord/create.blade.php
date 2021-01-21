@@ -20,7 +20,22 @@
         <form method="post" action="{{ url('storeBad') }}" autocomplete="off" class="form-horizontal">
         @csrf
         @method('post')
-      
+        <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Student Name') }}</label>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="form-group">
+                <select name="student_id" class="form-control">
+                    <option value="#"></option>
+                    @foreach($counselors as $counselor)
+                        @foreach($students as $student)
+                            @if($counselor->student_id == $student->id)
+                                <option value="{{$student->id}}">{{$student->firstname}} {{$student->lastname}}</option>
+                            @endif
+                        @endforeach
+                    @endforeach
+                </select>   
+            </div>
+        </div>
+        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
         <div class="row">
             <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Bad Deed') }}</label>
             <div class="col-sm-4 col-md-4 col-lg-4">

@@ -66,4 +66,13 @@ function deleteSection(id,elem)
 
     }
   }
+  function viewSection(id)
+  {
+    $.get("{{url('employees')}}/"+id,function(data,status){
+      $('#bigModalLabel').html('Section Information');
+      $('#bigModalBody').html(data);
+      $('#saveBig').hide();
+      $('#cancelBig').hide();
+    });
+  }
 </script>

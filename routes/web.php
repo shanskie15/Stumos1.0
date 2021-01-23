@@ -28,16 +28,20 @@ Route::middleware(['admin_type'])->group(function () {
     Route::resource('employees', 'EmployeesController');
     Route::prefix('employees')->group(function () {
         Route::delete('/soft/{id}','EmployeesController@delete');
+        Route::get('/export', ['as' => 'employees.export','uses' => 'EmployeesController@export']);
     });
+    
     Route::resource('student', 'StudentController');
     Route::prefix('student')->group(function () {
         // Route::get('/{student}/edit', ['as' => 'student.edit', 'uses' => 'StudentController@edit']);
         Route::put('/{student}', ['as' => 'student.update', 'uses' => 'StudentController@update']);
+        Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);
     });
     Route::resource('section', 'SectionController');
     Route::prefix('section')->group(function () {
         Route::get('/{section}/edit', ['as' => 'section.edit', 'uses' => 'SectionController@edit']); 
         Route::put('/{section}', ['as' => 'section.update', 'uses' => 'SectionController@update']);
+        Route::get('/export', ['as' => 'section.export','uses' => 'SectionController@export']);
     });
 });
 

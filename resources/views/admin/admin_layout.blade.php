@@ -16,3 +16,8 @@
     </div>
 </div>
 @endsection
+@section('js')
+@include('inc.employees')
+@include('inc.sections')
+@include('inc.students')
+@endsection

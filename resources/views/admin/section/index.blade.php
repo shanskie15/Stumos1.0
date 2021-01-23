@@ -8,7 +8,7 @@
       <a href="#"><button class="btn btn-primary">Import Section</button></a>
   </div>
   <div class="col-sm-2 col-md-4 col-lg-2">
-      <a href="#"><button class="btn btn-primary">Export Section</button></a>
+      <a href="{{ route('section.export')}}"><button class="btn btn-primary">Export Section</button></a>
   </div>
 </div>
 <div class="card" style="margin:2%;">
@@ -110,9 +110,4 @@
     </div>
   </div>
 </div>
-@endsection
-
-
-@section('js')
-@include('inc.sections')
 @endsection

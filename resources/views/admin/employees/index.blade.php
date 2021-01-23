@@ -8,7 +8,7 @@
       <a href="#"><button class="btn btn-primary">Import Employee</button></a>
   </div>
   <div class="col-sm-2 col-md-4 col-lg-2">
-      <a href="#"><button class="btn btn-primary">Export Employee</button></a>
+      <a href="{{ route('employees.export')}}"><button class="btn btn-primary">Export Employee</button></a>
   </div>
 </div>
 <div class="card" style="margin:2%;">
@@ -90,8 +90,4 @@
     </div>
   </div>
 </div>
-@endsection
-
-@section('js')
-@include('inc.employees')
 @endsection

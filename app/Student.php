@@ -26,13 +26,5 @@ class Student extends Model
     public function attendace(){
         return $this->belongsTo('App\Attendance');
     }
-    public function healthcare(){
-        return $this->belongsTo('App\Healthcare');
-    }
-    public function counselor(){
-        return $this->belongsTo('App\Counselor');
-    }
-    public function librarian(){
-        return $this->belongsTo('App\Librarian');
-    }
 }
+

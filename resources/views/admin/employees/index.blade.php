@@ -91,3 +91,7 @@
   </div>
 </div>
 @endsection
+
+@section('js')
+@include('inc.employees')
+@endsection

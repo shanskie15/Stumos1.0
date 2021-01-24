@@ -111,3 +111,7 @@
   </div>
 </div>
 @endsection
+
+@section('js')
+@include('inc.sections')
+@endsection

@@ -103,3 +103,7 @@
   </div>
 </div>
 @endsection
+
+@section('js')
+@include('inc.students')
+@endsection

@@ -85,11 +85,14 @@ Route::middleware(['healthcare_type'])->group(function () {
  Route::middleware(['librarian_type'])->group(function () {
      Route::resource('librarian', 'LibrarianController');
      Route::prefix('librarian')->group(function () {
+        Route::delete('/soft/{id}','LibrarianController@delete');
          Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
+          //  Route::get('/{librarian}/edit', ['as' => 'librarian.edit', 'uses' => 'LibrarianController@edit']);
+        //  Route::put('/{librarian}', ['as' => 'librarian.update', 'uses' => 'LibrarianController@update']);
          
      });
      Route::get('/borrow','LibrarianController@borrowindex');
-     Route::delete('/soft/{id}','LibrarianController@delete');
+     
  });
 /*END LIBRARIAN PANEL*/
 

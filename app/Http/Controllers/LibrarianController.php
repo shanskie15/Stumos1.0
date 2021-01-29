@@ -16,11 +16,8 @@ class LibrarianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
-        return view('librarian.librarian_home');
-        
-		
+    {       
+        return view('librarian.librarian_home');		
     }
 
     /**

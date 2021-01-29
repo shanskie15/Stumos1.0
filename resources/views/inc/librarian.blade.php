@@ -37,12 +37,12 @@
           switch (value) {
         
             case "soft":
-              removeEmployee("{{url('employees/soft')}}/"+id,elem);
+              removeEmployee("{{url('librarian/soft')}}/"+id,elem);
               
               break;
         
             case "hard":
-              removeEmployee("{{url('employees')}}/"+id,elem);
+              removeEmployee("{{url('librarian')}}/"+id,elem);
               break;
             default:;
           }
@@ -66,4 +66,13 @@
     
         }
       }
+      function viewBorrow(id)
+  {
+    $.get("{{url('borrow')}}/"+id,function(data,status){
+      $('#bigModalLabel').html('Section Information');
+      $('#bigModalBody').html(data);
+      $('#saveBig').hide();
+      $('#cancelBig').hide();
+    });
+  }
     </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Librarian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Borrow;
 use DB;
 
@@ -51,9 +52,9 @@ class LibrarianController extends Controller
         $request->validate([
             'fname'=>'required',
             'mname'=>'required',
-            'lname'=>'required'
+            'lname'=>'required',
         ]);
-
+            
         $borrow = Borrow::create([
         'fname'=>$request->fname,
         'mname'=>$request->mname,
@@ -72,8 +73,10 @@ class LibrarianController extends Controller
      * @param  \App\Librarian  $librarian
      * @return \Illuminate\Http\Response
      */
-    public function show(Librarian $librarian)
+    public function show($id)
     {
+        $borrow = Borrow::find($id);
+		return view('librarian.borrow.show', compact('borrow'));
         //
     }
 
@@ -83,8 +86,10 @@ class LibrarianController extends Controller
      * @param  \App\Librarian  $librarian
      * @return \Illuminate\Http\Response
      */
-    public function edit(Librarian $librarian)
+    public function edit($id)
     {
+        $borrow = Borrow::find($id);
+		return view('librarian.borrow.edit', compact('borrow'));
         //
     }
 
@@ -95,8 +100,26 @@ class LibrarianController extends Controller
      * @param  \App\Librarian  $librarian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Librarian $librarian)
+    public function update(Request $request,$id)
     {
+        $request->validate([
+            'fname'=>'required',
+            'mname'=>'required',
+            'lname'=>'required',
+        ]);
+            
+        $borrow = Borrow::find($id);
+        $borrow->fname = $request->fname;
+        $borrow->mname = $request->mname;
+        $borrow->lname = $request->lname;
+        $borrow->fnamelib = $request->fnamelib;
+        $borrow->contact = $request->contact;
+        $borrow->bookname = $request->bookname;
+        $borrow->datetoreturn = $request->datetoreturn;
+        $borrow->save();
+
+    
+        return redirect()->route('librarian.index');
         //
     }
 
@@ -112,7 +135,18 @@ class LibrarianController extends Controller
 		$borrow->delete();
 		return response()->json([
 			'status' => 'success',
-			'message' => 'Employee deleted from the database!'
+			'message' => 'Borrow deleted from the database!'
 		]);
     }
+    public function delete($id)
+	{
+		$borrow = Borrow::find($id);
+
+		$borrow->deleted = '1';
+		$borrow->save();
+		return response()->json([
+			'status' => 'success',
+			'message' => 'Borrow removed from the list.'
+		]);
+	}
 }

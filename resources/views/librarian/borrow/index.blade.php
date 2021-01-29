@@ -16,7 +16,7 @@
   </div>
   
   <div class="card-body">
-    <table class="display row-border" id="employeesTable">
+    <table class="display row-border" id="borrowTable">
       <thead>
         <tr>
           <th>Student Name</th>
@@ -37,7 +37,7 @@
             <td>{{$borrow->datetoreturn}}</td>
             <td>
               <button onclick="" class="btn btn-primary" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
-              <button onclick="" class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
+              <button onclick="editBorrow({{$borrow->id}},this)" class="btn btn-success" data-target="#bigModal" data-toggle="modal"><i class="fas fa-edit"></i>Edit</button>
               <button onclick="deleteBorrow({{$borrow->id}},this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
               {{-- viewEmployee({{$employee->id}})
               editEmployee({{$employee->id}},this)

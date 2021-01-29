@@ -1,101 +1,81 @@
-<form>
-    {{ csrf_field() }}
-    <div class="form-group row">
-      <label for="firstname" class="col-md-4 col-form-label text-md-right">First name</label>
-      <div class="col-md-6">
-        <input id="firstname" value="{{$employee->firstname}}" type="text" class="form-control" name="firstname" required autofocus>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="middlename" class="col-md-4 col-form-label text-md-right">Middle name</label>
-      <div class="col-md-6">
-          <input id="middlename" value="{{$employee->middlename}}" type="text" class="form-control" name="middlename" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="lastname" class="col-md-4 col-form-label text-md-right">Last name</label>
-      <div class="col-md-6">
-          <input id="lastname" value="{{$employee->lastname}}" type="text" class="form-control" name="lastname" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="email" class="col-md-4 col-form-label text-md-right">E-mail Address</label>
-      <div class="col-md-6">
-          <input id="email" value="{{$employee->email}}" type="email" class="form-control" name="email" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="gender" class="col-md-4 col-form-label text-md-right">Gender</label>
-      <div class="col-md-6">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="gender" id="female" value="female"
-          @if( 'female' == $employee->gender) checked @endif
-          >
-          <label class="form-check-label" for="female">Female</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="gender" id="female" value="male"
-          @if( 'male' == $employee->gender) checked @endif
-          >
-          <label class="form-check-label" for="female">Male</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="birth_date" class="col-md-4 col-form-label text-md-right">Date of birth</label>
-      <div class="col-md-6">
-          <input id="birth_date" type="date" value="{{$employee->birth_date}}" max="{{date('Y-m-d', strtotime('-21 years'))}}" class="form-control" name="birth_date"  required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="contact" class="col-md-4 col-form-label text-md-right">Contact</label>
-      <div class="col-md-6">
-          <input id="contact" type="text" value="{{$employee->contact}}" class="form-control" name="contact" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
-      <div class="col-md-6">
-          <input id="address" type="text" value="{{$employee->address}}" class="form-control" name="address" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
-      </div>
-    </div>
+@extends('librarian.librarian_layout')
+@section('css')
     
-    <div class="form-group row">
-      <label for="salary" class="col-md-4 col-form-label text-md-right">Salary</label>
-      <div class="col-md-6">
-          <input id="salary" type="number" value="{{$employee->salary}}" class="form-control" name="salary" required>
-  
-          <span class="invalid-feedback" role="alert">
-            <strong></strong>
-          </span>
+@endsection
+@section('content-body')
+<div class="card" style="margin:2%;">
+    <div class="card-header">
+      Edit Borrow
+    </div>
+    <div class="card-body">
+      <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+          <form method="post" action="{{ route('librarian.update') }}" autocomplete="off" class="form-horizontal">
+          @csrf
+          @method('post')
+          <p>Student Name</p>
+          <div class="row">
+              <label class="col-sm-1 col-md-1 col-lg-1 col-form-label">{{ __('First Name') }}</label>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                  <input class="form-control" name="fname" type="text" placeholder="{{ __('First Name') }}" required/>
+              </div>
+              </div>
+              <label class="col-sm-1 col-md-1 col-lg-1 col-form-label">{{ __('Middle Initial') }}</label>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                  <input class="form-control" name="mname" type="text" placeholder="{{ __('Middle Initial') }}" required/>
+              </div>
+              </div>
+              <label class="col-sm-1 col-md-1 col-lg-1 col-form-label">{{ __('Last Name') }}</label>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                  <input class="form-control" name="lname" type="text" placeholder="{{ __('Last Name') }}" required/>
+              </div>
+              </div>
+          </div>
+          {{-- hidden libraran --}}
+          <input class="form-control" name="fnamelib" type="hidden" placeholder="{{ __('First Name') }}" value="{{auth()->user()->firstname}}" required/>
+          
+
+          {{-- hidden libraran --}}
+          
+          <div class="row form-group">
+              <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Contact Number') }}</label>
+              <div class="col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                  <input class="form-control" name="contact" type="text" placeholder="{{ __('(+63)') }}" required="true" aria-required="true"/>
+              </div>
+              </div>
+              
+              
+          </div>
+          <p>Book Details</p>
+          
+          <div class="row">
+              <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Book Name') }}</label>
+              <div class="col-sm-4 col-md-4 col-lg-4">
+              <div class="form-group">
+                  <input class="form-control" name="bookname" type="text" placeholder="{{ __('Email') }}" required />
+              </div>
+              </div>
+              <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Return Date') }}</label>
+              <div class="col-sm-4 col-md-4 col-lg-4">
+                <input id="datetoreturn" type="date" max="{{date('Y-m-d', strtotime('-21 years'))}}" class="form-control" name="datetoreturn"  required>
+                <span class="invalid-feedback" role="alert">
+                  <strong></strong>
+                </span>
+            </div>
+          </div>
+          
+          <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+              <button type="submit" class="btn btn-primary">{{ __('Save Edit') }}</button>
+              </div>
+          </div>
+          </form>
+        </div>
       </div>
     </div>
-  </form>
+  </div>
+  @endsection

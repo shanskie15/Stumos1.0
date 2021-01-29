@@ -7,7 +7,7 @@
           <span class="navbar-toggler-icon"></span>
       </button>
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a href="{{  url('borrow') }}" class="nav-link">Borrow Book</a></li>
+        <li class="nav-item"><a href="{{ url('borrow') }}" class="nav-link">Borrow Book</a></li>
         <li class="nav-item"><a href="{{ url('student') }}" class="nav-link">Return Book</a></li>
         <li class="nav-item"><a href="{{ url('section') }}" class="nav-link">History</a></li>
     </ul>

@@ -36,7 +36,7 @@ Route::middleware(['admin_type'])->group(function () {
     });
     Route::resource('section', 'SectionController');
     Route::prefix('section')->group(function () {
-        Route::get('/{section}/edit', ['as' => 'section.edit', 'uses' => 'SectionController@edit']); 
+        Route::get('/{section}/edit', ['as' => 'section.edit', 'uses' => 'SectionController@edit']);
         Route::put('/{section}', ['as' => 'section.update', 'uses' => 'SectionController@update']);
     });
 });
@@ -78,8 +78,10 @@ Route::middleware(['healthcare_type'])->group(function () {
      Route::resource('librarian', 'LibrarianController');
      Route::prefix('librarian')->group(function () {
          Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
+         
      });
      Route::get('/borrow','LibrarianController@borrowindex');
+     Route::delete('/soft/{id}','LibrarianController@delete');
  });
 /*END LIBRARIAN PANEL*/
 

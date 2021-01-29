@@ -23,6 +23,7 @@ class CreateBorrowsTable extends Migration
             $table->string('contact');
             $table->string('bookname');
             $table->date('datetoreturn');
+            $table->enum('deleted',['0','1'])->default('0');
             
 
         });

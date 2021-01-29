@@ -56,7 +56,7 @@
               <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Book Name') }}</label>
               <div class="col-sm-4 col-md-4 col-lg-4">
               <div class="form-group">
-                  <input class="form-control" name="bookname" type="text" placeholder="{{ __('Email') }}" required />
+                  <input class="form-control" name="bookname" type="text" placeholder="{{ __('Book Name') }}" required />
               </div>
               </div>
               <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Return Date') }}</label>

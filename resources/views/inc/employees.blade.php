@@ -66,4 +66,14 @@ function deleteEmployee(id,elem)
 
     }
   }
+  function viewEmployee(id)
+  {
+    $.get("{{url('employees')}}/"+id,function(data,status){
+      $('#bigModalLabel').html('Employee Information');
+      $('#bigModalBody').html(data);
+      $('#saveBig').hide();
+      $('#cancelBig').hide();
+
+    });
+  }
 </script>

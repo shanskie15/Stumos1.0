@@ -13,10 +13,10 @@ class Librarian extends Model
         'date_returned' => 'required|date_format:Y-m-d',
     ];
 
-    public function student(){
-        return $this->belongsToMany('App\Student');
-    }
     public function user(){
         return $this->belongsTo('App\User');
+    }
+    public function attendace(){
+        return $this->belongsTo('App\Attendance');
     }
 }

@@ -22,7 +22,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{route('employees.show', auth()->user()->id)}}">
+                      <a class="dropdown-item" onclick="viewEmployee({{Auth::user()->id}})" data-target="#bigModal" data-toggle="modal">
                           {{ __('Profile') }}
                       </a>
                       <a class="dropdown-item" href="{{ route('logout') }}"
@@ -30,7 +30,6 @@
                                         document.getElementById('logout-form').submit();">
                           {{ __('Logout') }}
                       </a>
-
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                           @csrf
                       </form>

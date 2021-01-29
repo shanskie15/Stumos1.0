@@ -25,20 +25,26 @@ Route::middleware(['admin_type'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', ['as' => 'admin.index','uses' => 'AdminController@index']);
     });
-    Route::resource('employees', 'EmployeesController');
+
     Route::prefix('employees')->group(function () {
+        Route::get('/export', ['as' => 'employees.export','uses' => 'EmployeesController@export']);
         Route::delete('/soft/{id}','EmployeesController@delete');
     });
-    Route::resource('student', 'StudentController');
+    Route::resource('employees', 'EmployeesController');
+    
     Route::prefix('student')->group(function () {
         // Route::get('/{student}/edit', ['as' => 'student.edit', 'uses' => 'StudentController@edit']);
         Route::put('/{student}', ['as' => 'student.update', 'uses' => 'StudentController@update']);
+        Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);
     });
-    Route::resource('section', 'SectionController');
+    Route::resource('student', 'StudentController');
+
     Route::prefix('section')->group(function () {
         Route::get('/{section}/edit', ['as' => 'section.edit', 'uses' => 'SectionController@edit']);
         Route::put('/{section}', ['as' => 'section.update', 'uses' => 'SectionController@update']);
+        Route::get('/export', ['as' => 'section.export','uses' => 'SectionController@export']);
     });
+    Route::resource('section', 'SectionController');
 });
 
 /*END ADMIN PANEL*/
@@ -70,6 +76,8 @@ Route::middleware(['healthcare_type'])->group(function () {
     Route::prefix('healthcareprofessional')->group(function () {
         Route::get('/',['as' => 'healthcareprofessional.index','uses' => 'HealthCareController@index']);
     });
+    Route::get('/consultation','HealthCareController@consultation');
+    Route::get('/history','HealthCareController@history');
 });
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 

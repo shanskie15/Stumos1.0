@@ -1,8 +1,3 @@
-@extends('admin.admin_layout')
-@section('css')
-    
-@endsection
-@section('content-body')
 <div class="container emp-profile">
     <div class="row">
         <div class="col-sm-10 col-md-10 col-lg-10">
@@ -70,4 +65,3 @@
         </div>
     </div>     
 </div>
-@endsection

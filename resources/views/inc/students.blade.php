@@ -66,4 +66,14 @@ function deleteStudent(id,elem)
 
     }
   }
+  function viewStudent(id)
+  {
+    $.get("{{url('student')}}/"+id,function(data,status){
+      $('#bigModalLabel').html('Student Information');
+      $('#bigModalBody').html(data);
+      $('#saveBig').hide();
+      $('#cancelBig').hide();
+
+    });
+  }
 </script>

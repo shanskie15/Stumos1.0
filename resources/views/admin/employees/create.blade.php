@@ -84,7 +84,7 @@
             <div class="form-group">
                 <select name="personnel_type" class="form-control">
                         <option value="Teacher">Teacher</option>
-                        <option value="Counselor">Councelor</option>
+                        <option value="Counselor">Counselor</option>
                         <option value="HealthCareProfessional">HealthCareProfessional</option>
                         <option value="Librarian">Librarian</option>
                         <option value="Principal">Principal</option>

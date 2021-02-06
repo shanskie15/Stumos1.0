@@ -17,6 +17,20 @@ $(document).ready(function(){
     }
   });
 });
+$('#add').on('click',function(){
+    $.get("{{route('employees.import')}}",function(data,status){
+      $('#bigModalLabel').html('Import Employee');
+      $('#saveBig').html('Save');
+      $('#bigModalBody').html(data);
+      $('#saveBig').show();
+      $('#cancelBig').show();
+      $('#saveBig').unbind();
+      $('#saveBig').on('click',function(){
+        
+      });
+    });
+  }
+);
 
 function deleteEmployee(id,elem)
   {

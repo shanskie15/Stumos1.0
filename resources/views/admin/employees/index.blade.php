@@ -5,10 +5,10 @@
 @section('content-body')
 <div class="row" style="margin:2%;">
   <div class="col-sm-2 col-md-4 col-lg-2">
-      <a href="#"><button class="btn btn-primary">Import Employee</button></a>
+      <a href="{{ route('employees.export')}}"><button class="btn btn-primary">Export Employee</button></a>
   </div>
   <div class="col-sm-2 col-md-4 col-lg-2">
-      <a href="{{ route('employees.export')}}"><button class="btn btn-primary">Export Employee</button></a>
+      <a href="#" class="btn btn-sm btn-success float-right" id="import" data-toggle="modal" data-target="#bigModal">Import Employee</a>
   </div>
 </div>
 <div class="card" style="margin:2%;">

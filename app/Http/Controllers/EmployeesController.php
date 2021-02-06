@@ -7,14 +7,13 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
-use DB;
 
 class EmployeesController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,26 +43,26 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-		$request->validate([
-            'firstname'=>'required',
-            'middlename'=>'required',
-            'lastname'=>'required'
-        ]);
-		$employee = User::create([
-      'firstname' => $request->firstname,
-      'middlename' => $request->middlename,
-			'lastname' => $request->lastname,
-			'contact' => $request->contact,
-			'address' => $request->address,
-			'gender' => $request->gender,
-			'birth_date' => $request->birth_date,
-			'email' => $request->email,
-      'personnel_type' => $request->personnel_type,
-      'password' => Hash::make($request->password),
-		]);
-		
-		return redirect()->route('employees.index');
-	}
+      $request->validate([
+        'firstname'=>'required',
+        'middlename'=>'required',
+        'lastname'=>'required'
+      ]);
+      $employee = User::create([
+        'firstname' => $request->firstname,
+        'middlename' => $request->middlename,
+        'lastname' => $request->lastname,
+        'contact' => $request->contact,
+        'address' => $request->address,
+        'gender' => $request->gender,
+        'birth_date' => $request->birth_date,
+        'email' => $request->email,
+        'personnel_type' => $request->personnel_type,
+        'password' => Hash::make($request->password),
+      ]);
+      
+      return redirect()->route('employees.index');
+    }
 
     /**
      * Display the specified resource.
@@ -73,8 +72,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-		$employee = User::find($id);
-		return view('admin.employees.show', compact('employee'));
+      $employee = User::find($id);
+      return view('admin.employees.show', compact('employee'));
     }
 
     /**
@@ -85,8 +84,8 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-      	$employee = User::find($id);
-		return view('admin.employees.edit', compact('employee'));
+      $employee = User::find($id);
+		  return view('admin.employees.edit', compact('employee'));
     }
 
     /**
@@ -98,26 +97,26 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-		$request->validate([
-            'firstname'=>'required',
-            'middlename'=>'required',
-            'lastname'=>'required'
-        ]);
-        $employee = User::find($id);
-        $employee->firstname = $request->firstname;
-        $employee->middlename = $request->middlename;
-        $employee->lastname = $request->lastname;
-        $employee->email = $request->email;
-        $employee->gender = $request->gender;
-        $employee->birth_date = $request->birth_date;
-        $employee->contact = $request->contact;
-        $employee->address = $request->address;
-        $employee->personnel_type = $request->personnel_type;
-        $employee->password = Hash::make($request->password);
-        $employee->save();
+      $request->validate([
+          'firstname'=>'required',
+          'middlename'=>'required',
+          'lastname'=>'required'
+      ]);
+      $employee = User::find($id);
+      $employee->firstname = $request->firstname;
+      $employee->middlename = $request->middlename;
+      $employee->lastname = $request->lastname;
+      $employee->email = $request->email;
+      $employee->gender = $request->gender;
+      $employee->birth_date = $request->birth_date;
+      $employee->contact = $request->contact;
+      $employee->address = $request->address;
+      $employee->personnel_type = $request->personnel_type;
+      $employee->password = Hash::make($request->password);
+      $employee->save();
 
-        return redirect()->route('employees.index');
-	}
+      return redirect()->route('employees.index');
+	  }
 
     /**
      * Remove the specified resource from storage.
@@ -128,13 +127,13 @@ class EmployeesController extends Controller
 		// hard delete
     public function destroy($id)
     {
-		$employee = User::find($id);
-		$employee->delete();
-		return response()->json([
-			'status' => 'success',
-			'message' => 'Employee deleted from the database!'
-		]);
-	}
+      $employee = User::find($id);
+      $employee->delete();
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Employee deleted from the database!'
+      ]);
+    }
 	// soft delete
 	public function delete($id)
 	{
@@ -149,42 +148,54 @@ class EmployeesController extends Controller
   }
   
   public function export()
-    {
-        // if(!Auth::user()->areRoles([1]) && !request()->ajax()){
-        //     return back();
-        // }
-        // if(!Auth::user()->areRoles([1]) && request()->ajax()){
-        //     return response()->json([
-        //         'error' => 'Unauthorized access',
-        //     ]);
-        // }
-        try{
-            return  (new EmployeesExport)->download('EmployeeRecords['.now().'].xlsx');
-            // return back()->with('success','Excel file has been generated.');
-        }catch(\Exception $e){
-            return back()->with('error','Unable to generate excel file!');
-        }
+  {
+      // if(!Auth::user()->areRoles([1]) && !request()->ajax()){
+      //     return back();
+      // }
+      // if(!Auth::user()->areRoles([1]) && request()->ajax()){
+      //     return response()->json([
+      //         'error' => 'Unauthorized access',
+      //     ]);
+      // }
+      try{
+          return  (new EmployeesExport)->download('EmployeeRecords['.now().'].xlsx');
+          // return back()->with('success','Excel file has been generated.');
+      }catch(\Exception $e){
+          return back()->with('error','Unable to generate excel file!');
+      }
+  }
+  public function import()
+  {
+    // if(!Auth::user()->areRoles([1]) && !request()->ajax()){
+    //     return back();
+    // }
+    // if(!Auth::user()->areRoles([1]) && request()->ajax()){
+    //     return response()->json([
+    //         'error' => 'Unauthorized access',
+    //     ]);
+    // }
+    // $path = $request->file('file')->getRealPath();
+    return view('admin.employees.upload');
+  }
+  public function importExcel(Request $request)
+  {
+    // if(!Auth::user()->areRoles([1]) && !request()->ajax()){
+    //     return back();
+    // }
+    // if(!Auth::user()->areRoles([1]) && request()->ajax()){
+    //     return response()->json([
+    //         'error' => 'Unauthorized access',
+    //     ]);
+    // }
+    // $path = $request->file('file')->getRealPath();
+    $this->validate($request,[
+      'file' => 'required|mimes:xls,xlsx',
+    ]);
+    try{
+        Excel::import(new EmployeeImport, $request->file('file'));
+        return back()->with('success','List of employees has been imported.');
+    }catch(\Exception $e){
+        return back()->with('error','The given data was invalid. Please make sure no duplicate ID number, E-mail address, Username and Contact Number. And please provide all the information except for the middle name which is optional.');
     }
-    public function import(Request $request)
-    {
-        // if(!Auth::user()->areRoles([1]) && !request()->ajax()){
-        //     return back();
-        // }
-        // if(!Auth::user()->areRoles([1]) && request()->ajax()){
-        //     return response()->json([
-        //         'error' => 'Unauthorized access',
-        //     ]);
-        // }
-        // $path = $request->file('file')->getRealPath();
-        $this->validate($request,[
-            'file' => 'required|mimes:xls,xlsx',
-        ]);
-        try{
-            Excel::import(new EmployeeImport, $request->file('file'));
-            return back()->with('success','List of employees has been imported.');
-        }catch(\Exception $e){
-            return back()->with('error','The given data was invalid. Please make sure no duplicate ID number, E-mail address, Username and Contact Number. And please provide all the information except for the middle name which is optional.');
-        }
-       
-    }
+  }
 }

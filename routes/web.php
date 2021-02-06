@@ -28,6 +28,8 @@ Route::middleware(['admin_type'])->group(function () {
 
     Route::prefix('employees')->group(function () {
         Route::get('/export', ['as' => 'employees.export','uses' => 'EmployeesController@export']);
+        Route::get('/import', ['as' => 'employees.import','uses' => 'EmployeesController@import']);
+        Route::get('/import', ['as' => 'employees.importExcel','uses' => 'EmployeesController@importExcel']);
         Route::delete('/soft/{id}','EmployeesController@delete');
     });
     Route::resource('employees', 'EmployeesController');

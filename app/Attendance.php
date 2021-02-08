@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    public static $rules = [
-        'student_id' => 'required',
-        'healthcare_id' => 'required',
-        'counselor_id' => 'required',
-        'librarian_id' => 'required',
-        'date' => 'required|date_format:Y-m-d'
+    protected $fillable = [
+        'user_id',
+        'student_id',
+        'date',
     ];
 
     public function student(){

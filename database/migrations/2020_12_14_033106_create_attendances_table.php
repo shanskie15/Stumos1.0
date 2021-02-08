@@ -15,16 +15,13 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('student_id')->unsigned()->nullable();
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->bigInteger('healthcare_id')->unsigned()->nullable();
-            $table->foreign('healthcare_id')->references('id')->on('students')->onDelete('cascade');
-            $table->bigInteger('counselor_id')->unsigned()->nullable();
-            $table->foreign('counselor_id')->references('id')->on('students')->onDelete('cascade');
-            $table->bigInteger('librarian_id')->unsigned()->nullable();
-            $table->foreign('librarian_id')->references('id')->on('students')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('date');
             $table->enum('attendance_status',['present','late','absent'])->nullable();
+            $table->enum('healthcare_status',['in','out'])->nullable();
+            $table->enum('counselor_status',['in','out'])->nullable();
+            $table->enum('librarian_status',['in','out'])->nullable();
             $table->enum('deleted',['0','1'])->default('0');
             $table->timestamps();
         });

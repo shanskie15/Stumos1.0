@@ -1,102 +1,30 @@
 @extends('counselor.counselor_layout')
 
 @section('counselor-body')
-<div class="card" style="margin:2%;">
-  <div class="card-header">
-  <div class="row">
-      <div class="col-sm-10 col-md-10 col-lg-10">
-        <p>Student</p>
-      </div>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <h1>SCAN STUDENT</h1>
     </div>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="table-responsive">
-        <table class="table" id="sectionTable">
-          <thead class="text-primary">
-            <th>
-                {{ __('Name') }}
-            </th>
-            <th>
-              {{ __('Year') }}
-            </th>
-            <th>
-              {{ __('Teacher/Adviser') }}
-            </th>
-            <th style="width:30%">
-              {{ __('Actions') }}
-            </th>
-          </thead>
-          <tbody>
-            @foreach($students as $student)
-              @if($student->delete != 1)
-                <tr>
-                  <td>
-                    {{ $student->lastname }}, {{ $student->firstname }}
-                  </td>
-                  <td>
-                    {{ $student->year }}
-                  </td>
-                  <td>
-                  <form method="post" action="{{route('counselor.store')}}" autocomplete="off" class="form-horizontal">
-                    @csrf
-                    @method('post')
-                    <input type="hidden" name="student_id" value="{{$student->id}}">
-                    <button class="btn btn-primary" type="submit"><i class="far fa-list-alt"></i>Add</button>
-                    </form>
-                  </td>
-                </tr>
-              @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="box">
+            <img src="/img/image.png" alt="stumos" style="height:100%; width:100%;">
+        </div>
     </div>
-  </div>
-</div>
-
-<div class="card" style="margin:2%;">
-  <div class="card-header">
-    <div class="row">
-      <div class="col-sm-10 col-md-10 col-lg-10">
-        <p>Counselor</p>
-      </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h1>First Name:</h1>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h1>Last Name:</h1>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h2>Section:</h2>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h2>Year:</h2>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="table-responsive">
-        <table class="table" id="sectionTable">
-          <thead class="text-primary">
-            <th>
-                {{ __('Student Name') }}
-            </th>
-            <th style="width:30%">
-              {{ __('Actions') }}
-            </th>
-          </thead>
-          <tbody>
-            @foreach($counselors as $counselor)
-              @if($counselor->delete != 1)
-                @foreach($students as $student)
-                    @if($counselor->student_id == $student->id)
-                    <tr>
-                    <td>
-                        {{ $student->lastname }}, {{ $student->firstname }}
-                    </td>
-                    <td>
-                    <a href=""><button class="btn btn-primary"><i class="far fa-list-alt"></i>View</button></a>
-                    <a href=""><button class="btn btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-                    </td>
-                    </tr>
-                    @endif
-                @endforeach
-              @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 </div>
 @endsection

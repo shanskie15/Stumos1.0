@@ -52,12 +52,13 @@ Route::middleware(['admin_type'])->group(function () {
 /*END ADMIN PANEL*/
 
 /*TEACHER PANEL*/
-// Route::middleware(['teacher_type'])->group(function () {
-//     Route::resource('teacher', 'TeacherController');
-//     Route::prefix('teacher')->group(function () {
-//         Route::get('/', ['as' => 'teacher.index','uses' => 'TeacherController@index']);
-//     });
-// });
+Route::middleware(['teacher_type'])->group(function () {
+    Route::prefix('teacher')->group(function () {
+        Route::get('/', ['as' => 'teacher.index','uses' => 'TeacherController@index']);
+    });
+    Route::get('/attendance', 'TeacherController@attendance');
+    Route::resource('teacher', 'TeacherController');
+});
 /*END TEACHER PANEL*/
 
 /*COUNSELOR PANEL*/

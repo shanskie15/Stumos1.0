@@ -15,13 +15,7 @@ class Attendance extends Model
     public function student(){
         return $this->belongsToMany('App\Student');
     }
-    public function healthcare(){
-        return $this->belongsToMany('App\Healthcare');
-    }
-    public function counselor(){
-        return $this->belongsToMany('App\Counselor');
-    }
-    public function librarian(){
-        return $this->belongsToMany('App\Librarian');
+    public function user(){
+        return $this->belongsTo('App\User');
     }
 }

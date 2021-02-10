@@ -27,4 +27,9 @@ class TeacherController extends Controller
         $students = Student::where('deleted','0')->get();
         return view('teacher.teacher_home', compact('students'));
     }
+    public function attendance()
+    {
+        // $students = Student::where('deleted','0')->get();
+        return view('teacher.attendance.index');
+    }
 }

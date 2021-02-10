@@ -1,30 +1,30 @@
 @extends('librarian.librarian_layout')
 
 @section('content-body')
-<div class="row admin-row">
-    <a href="{{route('librarian.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Added Borrow</h5>
-                <h1>21</h1>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <h1>SCAN STUDENT</h1>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="box">
+            <img src="/img/image.png" alt="stumos" style="height:100%; width:100%;">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h1>First Name:</h1>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h1>Last Name:</h1>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h2>Section:</h2>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h2>Year:</h2>
             </div>
         </div>
-    </a>
-    <a href="{{route('student.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Returned Book</h5>
-                <h1>21</h1>
-            </div>
-        </div>
-    </a>
-    <a href="{{route('section.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">History</h5>
-                <h1>21</h1>
-            </div>
-        </div>
-    </a>
+    </div>
 </div>
 @endsection

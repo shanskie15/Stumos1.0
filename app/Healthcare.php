@@ -15,7 +15,4 @@ class Healthcare extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
-    public function attendace(){
-        return $this->belongsTo('App\Attendance');
-    }
 }

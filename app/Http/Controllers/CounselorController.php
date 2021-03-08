@@ -10,6 +10,7 @@ use App\Counselling;
 use App\User;
 use App\Section;
 use App\CounselorCreate;
+use Illuminate\Support\Facades\DB;
 
 class CounselorController extends Controller
 {

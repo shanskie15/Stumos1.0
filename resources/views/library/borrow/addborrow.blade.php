@@ -12,11 +12,11 @@
                
                 <option selected>Select Student</option>
                 @foreach($students as $student)
-                <option  value="{{$student['id']}}">{{$student['lname']}},{{$student['fname']}}</option>
+                <option  value="{{$student['id']}}">{{$student['lastname']}},{{$student['firstname']}}</option>
                 
                 @endforeach
               </select>
-             
+              <input type="hidden"  name="user_id" value=" {{ Auth::user()->id}}">
             </div>
             <div class="form-group">
               <label for="formGroupExampleInput2">Book Name</label>

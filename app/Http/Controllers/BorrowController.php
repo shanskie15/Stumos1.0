@@ -73,7 +73,7 @@ class BorrowController extends Controller
             $returned->description=$req->description;
             $returned->deleted=$req->deleted;
             $returned->save();
-            return redirect('/');
+            return redirect('/viewreturned');
 
         }else{
             return redirect('/login');
@@ -137,19 +137,19 @@ class BorrowController extends Controller
     {       
        
             
-        if($req->session()->has('user'))
-        {               
+        // if($req->session()->has('user'))
+        // {               
             $borrow = new Borrow;
-            $borrow->user_id=$req->session()->get('user')['id'];
+            $borrow->user_id=$req->user_id;
             $borrow->student_id=$req->student_id;
             $borrow->bookname=$req->bookname;
             $borrow->description=$req->description;
             $borrow->save();
-            return redirect('/');
+            return redirect('/index');
 
-        }else{
-            return redirect('/login');
-        }     
+        // }else{
+        //     return redirect('/login');
+        // }     
     }
 }
 

@@ -20,6 +20,7 @@
             <input type="hidden"  value="{{$borrows['student_id']}}" name="student_id">
             <input type="hidden"  value="{{$borrows['bookname']}}" name="bookname">
             <input type="hidden"  value="{{$borrows['description']}}" name="description">
+            <input type="hidden"  name="user_id" value=" {{ Auth::user()->id}}">
             <input type="hidden"  value="1" name="deleted">
 
             <button class="btn btn-success">Book Returned</button>

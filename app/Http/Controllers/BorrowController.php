@@ -8,6 +8,7 @@ use App\Student;
 use App\Returned;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class BorrowController extends Controller
 
 {
@@ -57,8 +58,8 @@ class BorrowController extends Controller
     {       
        
             
-        if($req->session()->has('user'))
-        {               
+        // if($req->session()->has('user'))
+        // {               
             // $returned = new Returned;
             // $returned->user_id=$req->session()->get('user')['id'];
             // $returned->borrow_id=$req->borrow_id;
@@ -67,7 +68,7 @@ class BorrowController extends Controller
             Borrow::destroy($req->id);
 
             $returned = new Borrow;
-            $returned->user_id=$req->session()->get('user')['id'];
+            $returned->user_id=$req->user_id;
             $returned->student_id=$req->student_id;
             $returned->bookname=$req->bookname;
             $returned->description=$req->description;
@@ -75,24 +76,31 @@ class BorrowController extends Controller
             $returned->save();
             return redirect('/viewreturned');
 
-        }else{
-            return redirect('/login');
-        }     
+        // }else{
+        //     return redirect('/login');
+        // }     
     }
     Static function returnedBook()
     {
+
         $userId=Session::get('user')['id'];
+        
+        // {{ Auth::user()->id}}
         return Returned::where('user_id',$userId)->count();
 
     }
     function viewreturned(){
+               
         
-        $userId=Session::get('user')['id'];
+        // $userId=Session::get('user')['id'];
+        // print_r($userId);
         // $borrows=DB::table('returned')
         // ->join('borrows','returned.borrow_id','=','borrows.id')
         // ->where('returned.user_id',$userId)
         // ->select('borrows.*','returned.id as returned_id')
         // ->get(); 
+        $userId=Auth::user()->id;
+       
 
         $borrows=DB::table('borrows')
         ->join('students','borrows.student_id','=','students.id')
@@ -102,8 +110,8 @@ class BorrowController extends Controller
 
         // return view('')
         // $data = Returned::all();
-        
-        return view('library.borrow.viewreturned',['borrows'=>$borrows]); 
+        dd($borrows);
+        return view('library.borrow.viewreturned',compact('borrows')); 
     }
     function removedreturned($id){
         

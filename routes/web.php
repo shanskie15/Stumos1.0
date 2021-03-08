@@ -70,7 +70,7 @@ Route::middleware(['teacher_type'])->group(function () {
 /*END TEACHER PANEL*/
 
 /*COUNSELOR PANEL*/
-    Route::middleware(['counselor_type'])->group(function () {
+Route::middleware(['counselor_type'])->group(function () {
     Route::resource('counselor', 'CounselorController');
         Route::prefix('counselor')->group(function () {
         Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
@@ -78,6 +78,10 @@ Route::middleware(['teacher_type'])->group(function () {
      Route::get('/badrecord', 'CounselorController@createBadRecord');
      Route::get('/counsel', 'CounselorController@createCounsel');
      Route::post('/storeBad', 'CounselorController@storeBad');
+     Route::post('/storeCounsel', 'CounselorController@storeCounsel');
+     
+     Route::get('/counselor/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
+     Route::get('/counselor/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
  });
 /*END COUNSELOR PANEL*/
 

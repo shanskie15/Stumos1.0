@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBadrecordsTable extends Migration
+class CreateCounselorCreatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateBadrecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('badrecords', function (Blueprint $table) {
+        Schema::create('counselor_creates', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('student_id')->unsigned()->nullable();
-            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('bad_deed', ['Bullying','Stealng','CuttingClasses','Absent','Others']);
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->enum('type', ['bad_record','counselling']);
+            $table->enum('bad_deed', ['Bullying','Stealing','CuttingClasses','Absent','Others']);
             $table->string('description');
-
-            
         });
     }
 
@@ -34,6 +33,6 @@ class CreateBadrecordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('badrecords');
+        Schema::dropIfExists('counselor_creates');
     }
 }

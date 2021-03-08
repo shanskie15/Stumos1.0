@@ -4,20 +4,20 @@
 @endsection
 @section('counselor-body')
 <div class="card" style="margin:2%;">
-  <div class="card-header">
+    <div class="card-header">
     <div class="row">
         <div class="col-sm-10 col-md-10 col-lg-10">
-            Create Bad Record
+            Create Record
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
             <a href="{{route('counselor.index')}}"><button class="btn btn-primary" style="float:right;">Back</button></a>
         </div>
-        </div>
+    </div>
     </div>
     <div class="card-body">
     <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
-        <form method="post" action="{{ url('storeBad') }}" autocomplete="off" class="form-horizontal">
+        <form method="post" action="{{ url('guidancestore') }}" autocomplete="off" class="form-horizontal">
         @csrf
         @method('post')
         <div class="row">
@@ -39,10 +39,23 @@
         </div>
         <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
         <div class="row">
+            <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Record Type') }}</label>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="form-group">
+                {{-- <select name="record" id="record_type" class="form-control" onchange="return showDescription();" > --}}
+                <select name="record" id="record_type" class="form-control">
+                    <option value="counselling">Counselling</option>    
+                    <option value="bad_record">Bad Record</option>
+                </select>
+            </div>
+            </div>
+        </div>
+        {{-- <div class="row"  style="visibility: hidden;"> --}}
+            <div class="row">
             <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Bad Deed') }}</label>
             <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="form-group">
-                <select name="bad_deed" class="form-control" >
+                <select name="bad_deed" id="bad_deed" class="form-control" >
                         <option value="Bullying">Bullying</option>
                         <option value="Stealing">Stealing</option>
                         <option value="CuttingClasses">Cutting Classes</option>

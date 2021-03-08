@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth;
@@ -21,13 +21,13 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::where('deleted','0')->get();
+        $employees = User::where('deleted','0')->get();
         return view('admin.employee.index', compact('employees'));
     }
 
     public function history()
     {
-        $employees = Employee::where('deleted','1')->get();
+        $employees = User::where('deleted','1')->get();
         return view('admin.employee.history', compact('employees'));
     }
 
@@ -44,7 +44,7 @@ class EmployeeController extends Controller
             'lastname'=>'required'
         ]);
 
-        $employee = Employee::create([
+        $employee = User::create([
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'lastname' => $request->lastname,
@@ -62,13 +62,13 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         return view('admin.employee.show', compact('employee'));
     }
 
     public function edit($id)
     {
-        $employee = Employee::find($id);
+        $employee = User::find($id);
 		return view('admin.employee.edit', compact('employee'));
     }
 
@@ -79,7 +79,7 @@ class EmployeeController extends Controller
             'middlename'=>'required',
             'lastname'=>'required'
         ]);
-        $employee = Employee::where('deleted','0')->get($id);
+        $employee = User::where('deleted','0')->get($id);
         $employee->firstname = $request->firstname;
         $employee->middlename = $request->middlename;
         $employee->lastname = $request->lastname;
@@ -98,7 +98,7 @@ class EmployeeController extends Controller
 	// hard delete
     public function destroy($id)
     {
-        $employee = Employee::where('deleted','0')->get($id);
+        $employee = User::where('deleted','0')->get($id);
         $employee->delete();
         return response()->json([
             'status' => 'success',
@@ -109,7 +109,7 @@ class EmployeeController extends Controller
     // soft delete
     public function delete($id)
     {
-        $employee = Employee::where('deleted','0')->get($id);
+        $employee = User::where('deleted','0')->get($id);
 
         $employee->deleted = '1';
         $employee->save();

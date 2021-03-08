@@ -34,7 +34,7 @@ Route::middleware(['admin_type'])->group(function () {
         Route::put('/{employee}', 'EmployeeController@update')->name('employee.update');
         Route::delete('/soft/{id}','EmployeeController@delete');
     });
-    Route::resource('employee', 'EmployeesController');
+    Route::resource('employee', 'EmployeeController');
 
     Route::prefix('student')->group(function () {
         // Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);

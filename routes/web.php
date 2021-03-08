@@ -111,15 +111,17 @@ Route::get('/logout', function () {
 // Route::prefix('librarian')->group(function () {
 Route::get('getaddborrow','BorrowController@getaddborrow');
 // Route::post('/login','UserController@login');
-Route::get('/','BorrowController@index');
-Route::get('detail/{id}','BorrowController@detail')->middleware('is_librarian');
-Route::get('returneddetail/{id}','BorrowController@returneddetail')->middleware('is_librarian');
-Route::get('search','BorrowController@search')->middleware('is_librarian');
-Route::post('returned','BorrowController@returned')->middleware('is_librarian');
-Route::get('viewreturned','BorrowController@viewreturned')->middleware('is_librarian');
-Route::get('removereturned/{id}','BorrowController@removedreturned')->middleware('is_librarian');
-Route::post('addborrow','BorrowController@addborrow')->middleware('is_librarian');
-Route::resource('library', 'BorrowController');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/index','BorrowController@index')->name('library.index');
+Route::get('detail/{id}','BorrowController@detail');
+Route::get('returneddetail/{id}','BorrowController@returneddetail');
+Route::get('search','BorrowController@search');
+Route::post('returned','BorrowController@returned');
+Route::get('viewreturned','BorrowController@viewreturned');
+Route::get('removereturned/{id}','BorrowController@removedreturned');
+Route::post('addborrow','BorrowController@addborrow');
+Route::resource('librarian', 'BorrowController');
 // });
 
 

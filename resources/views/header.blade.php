@@ -31,7 +31,7 @@ if(Session::has('user')){
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="active"><a href="/getaddborrow">Add Borrowed</a></li>
-          <li class="active"><a href="/">Borrowed Book</a></li>
+          <li class="active"><a href="/index">Borrowed Book</a></li>
           <li class="active"><a href="/viewreturned">Returned Books</a></li>
           <form action="/search" class="navbar-form navbar-left">
             <div class="form-group">
@@ -50,7 +50,7 @@ if(Session::has('user')){
               <li><a href="/logout">Logout</a></li>
               </ul>
             @else
-            <li><a href="/login">Login</a></li>
+            <li><a href="/login"> {{ Auth::user()->firstname.' '.Auth::user()->lastname }}</a></li>
             @endif
         </ul>
       </div><!-- /.navbar-collapse -->

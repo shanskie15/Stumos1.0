@@ -34,7 +34,7 @@ Route::middleware(['admin_type'])->group(function () {
         Route::put('/{employee}', 'EmployeeController@update')->name('employee.update');
         Route::delete('/soft/{id}','EmployeeController@delete');
     });
-    Route::resource('employee', 'EmployeesController');
+    Route::resource('employee', 'EmployeeController');
 
     Route::prefix('student')->group(function () {
         // Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);
@@ -98,18 +98,32 @@ Route::middleware(['healthcare_type'])->group(function () {
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 
 /*LIBRARIAN PANEL*/
- Route::middleware(['librarian_type'])->group(function () {
-     Route::resource('librarian', 'LibrarianController');
-     Route::prefix('librarian')->group(function () {
-        Route::delete('/soft/{id}','LibrarianController@delete');
-         Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
-          //  Route::get('/{librarian}/edit', ['as' => 'librarian.edit', 'uses' => 'LibrarianController@edit']);
-        //  Route::put('/{librarian}', ['as' => 'librarian.update', 'uses' => 'LibrarianController@update']);
 
-     });
-     Route::get('/borrow','LibrarianController@borrowindex');
+ // Route::get('/login', function () {
+//     return view('login');
+// });
 
- });
+Route::get('/logout', function () {
+    Session::forget('user');
+    return redirect('login');
+});
+
+// Route::prefix('librarian')->group(function () {
+Route::get('getaddborrow','BorrowController@getaddborrow');
+// Route::post('/login','UserController@login');
+Route::get('/','BorrowController@index');
+Route::get('detail/{id}','BorrowController@detail')->middleware('is_librarian');
+Route::get('returneddetail/{id}','BorrowController@returneddetail')->middleware('is_librarian');
+Route::get('search','BorrowController@search')->middleware('is_librarian');
+Route::post('returned','BorrowController@returned')->middleware('is_librarian');
+Route::get('viewreturned','BorrowController@viewreturned')->middleware('is_librarian');
+Route::get('removereturned/{id}','BorrowController@removedreturned')->middleware('is_librarian');
+Route::post('addborrow','BorrowController@addborrow')->middleware('is_librarian');
+Route::resource('library', 'BorrowController');
+// });
+
+
+
 /*END LIBRARIAN PANEL*/
 
 /*PRINCIPAL PANEL*/

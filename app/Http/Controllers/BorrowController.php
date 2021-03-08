@@ -25,14 +25,14 @@ class BorrowController extends Controller
         // ->select('borrows.*','students.*','borrows.id as borrows_id')
         // ->get(); 
         
-        return view('library.borrow',['borrows'=>$data]); 
+        return view('library.borrow.borrow',['borrows'=>$data]); 
 
 
     }
     function detail($id)
     {
         $data = Borrow::find($id);
-        return view('library.detail',['borrows'=>$data]);
+        return view('library.borrow.detail',['borrows'=>$data]);
     }
     function returneddetail($id)
     {
@@ -45,13 +45,13 @@ class BorrowController extends Controller
         // return view('returneddetail',['borrows'=>$borrows]); 
 
         $data = Borrow::find($id);
-        return view('library.returneddetail',['borrows'=>$data]);
+        return view('library.borrow.returneddetail',['borrows'=>$data]);
     }
     function search(Request $req)
     {
         
        $data = Borrow::where('bookname','like','%'.$req->input('query').'%')->get();
-       return view('library.search',['borrows'=>$data]);
+       return view('library.borrow.search',['borrows'=>$data]);
     }       
     function returned(Request $req)
     {       
@@ -103,7 +103,7 @@ class BorrowController extends Controller
         // return view('')
         // $data = Returned::all();
         
-        return view('library.viewreturned',['borrows'=>$borrows]); 
+        return view('library.borrow.viewreturned',['borrows'=>$borrows]); 
     }
     function removedreturned($id){
         
@@ -128,7 +128,7 @@ class BorrowController extends Controller
         
         $data = Student::all();
         
-        return view('library.addborrow',['students'=>$data]); 
+        return view('library.borrow.addborrow',['students'=>$data]); 
 
 
     }

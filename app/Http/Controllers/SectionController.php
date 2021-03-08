@@ -67,7 +67,7 @@ class SectionController extends Controller
         $section = Section::find($id);
         $section->section_name = $request->get('section_name');
         $section->room_number = $request->get('room_number');
-        $section->employee_id = $request->get('employee_id');
+        $section->user_id = $request->get('employee_id');
         $section->save();
 
         return redirect()->route('section.index')->with('success','Section updated successfully');

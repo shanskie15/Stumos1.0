@@ -79,7 +79,7 @@ Route::middleware(['counselor_type'])->group(function () {
      Route::get('/counsel', 'CounselorController@createCounsel');
      Route::post('/storeBad', 'CounselorController@storeBad');
      Route::post('/storeCounsel', 'CounselorController@storeCounsel');
-     
+
      Route::get('/counselor/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
      Route::get('/counselor/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
      Route::get('/counselor/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
@@ -97,36 +97,7 @@ Route::middleware(['healthcare_type'])->group(function () {
 });
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 
-/*LIBRARIAN PANEL*/
 
- // Route::get('/login', function () {
-//     return view('login');
-// });
-
-Route::get('/logout', function () {
-    Session::forget('user');
-    return redirect('login');
-});
-
-// Route::prefix('librarian')->group(function () {
-Route::get('getaddborrow','BorrowController@getaddborrow');
-// Route::post('/login','UserController@login');
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/index','BorrowController@index')->name('library.index');
-Route::get('detail/{id}','BorrowController@detail');
-Route::get('returneddetail/{id}','BorrowController@returneddetail');
-Route::get('search','BorrowController@search');
-Route::post('returned','BorrowController@returned');
-Route::get('viewreturned','BorrowController@viewreturned');
-Route::get('removereturned/{id}','BorrowController@removedreturned');
-Route::post('addborrow','BorrowController@addborrow');
-Route::resource('librarian', 'BorrowController');
-// });
-
-
-
-/*END LIBRARIAN PANEL*/
 
 /*PRINCIPAL PANEL*/
 // Route::middleware(['principal_type'])->group(function () {

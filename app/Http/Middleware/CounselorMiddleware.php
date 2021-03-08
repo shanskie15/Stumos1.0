@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Middleware\Admin;
+namespace App\Http\Middleware;
 
 use Closure;
 
-class AdminMiddleware
+class CounselorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->personnel_type == 'admin'){
+        if(auth()->user()->personnel_type == 'counselor'){
             return $next($request);
         }else{
             return redirect()->route('login')->with('error',"You don't have clearance to access");

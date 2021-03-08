@@ -63,11 +63,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'admin_type' => \App\Http\Middleware\Admin\AdminMiddleware::class,
-        'counselor_type' => \App\Http\Middleware\Employee\CounselorMiddleware::class,
-        'healthcare_type' => \App\Http\Middleware\Employee\HealthCareMiddleware::class,
-        'librarian_type' => \App\Http\Middleware\Employee\LibrarianMiddleware::class,
-        'principal_type' => \App\Http\Middleware\Employee\PrincipalMiddleware::class,
-        'teacher_type' => \App\Http\Middleware\Employee\TeacherMiddleware::class,
+        'admin_type' => \App\Http\Middleware\AdminMiddleware::class,
+        'counselor_type' => \App\Http\Middleware\CounselorMiddleware::class,
+        'healthcare_type' => \App\Http\Middleware\HealthCareMiddleware::class,
+        'librarian_type' => \App\Http\Middleware\LibrarianMiddleware::class,
+        'principal_type' => \App\Http\Middleware\PrincipalMiddleware::class,
+        'teacher_type' => \App\Http\Middleware\TeacherMiddleware::class,
     ];
 }

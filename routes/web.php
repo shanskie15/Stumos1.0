@@ -17,13 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 /*ADMIN PANEL*/
 Route::middleware(['admin_type'])->group(function () {
     Route::resource('admin', 'AdminController', ['except' => ['destroy','show','update','create','edit','store']]);
     Route::prefix('admin')->group(function () {
-        Route::get('/', ['as' => 'admin.index','uses' => 'AdminController@index']);
+        Route::get('/', 'AdminController@index')->name('admin.index');
     });
 
     Route::prefix('employee')->group(function () {

@@ -1,6 +1,6 @@
 @extends('admin.admin_layout')
 @section('css')
-    
+
 @endsection
 @section('content-body')
 <div class="card" style="margin:2%;">
@@ -35,12 +35,12 @@
                     <label class="col-sm-2 col-md-2 col-lg-2 col-form-label">{{ __('Teacher/Adviser') }}</label>
                     <div class="col-sm-4 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <select name="user_id" class="form-control">
+                            <select name="employee_id" class="form-control">
                                 <option value="#"></option>
                                 @foreach($employees as $employee)
                                     <option value="{{$employee->id}}">{{$employee->firstname}} {{$employee->lastname}}</option>
                                 @endforeach
-                            </select>   
+                            </select>
                         </div>
                     </div>
                 </div>

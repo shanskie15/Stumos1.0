@@ -1,26 +1,25 @@
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
-  $('#sectionTable').DataTable(
+  $('#employeesTable').DataTable(
     {
       "columns": [
-            { "data": "section_name" },
-            { "data": "room_number" },
-            { "data": "user_id" },
-            { "data": "actions" },
+            { "data": "name" },
+            { "data": "email" },
+            { "data": "type" },
+            { "data": "action" },
         ]
     }
   );
-  var table = $('#sectionTable').DataTable();
+  var table = $('#employeesTable').DataTable();
   $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
 });
-
-function deleteSection(id,elem)
+function deleteEmployee(id,elem)
   {
-    swal("Do you want to remove section from database?", {
+    swal("Do you want to remove employee from database?", {
       buttons: {
         cancel: "Cancel",
         catch: {
@@ -37,17 +36,17 @@ function deleteSection(id,elem)
       switch (value) {
     
         case "soft":
-          removeSection("{{url('section/soft')}}/"+id,elem);
+          removeEmployee("{{url('employees/soft')}}/"+id,elem);
           
           break;
     
         case "hard":
-          removeSection("{{url('section')}}/"+id,elem);
+          removeEmployee("{{url('employees')}}/"+id,elem);
           break;
         default:;
       }
     });
-    function removeSection(url)
+    function removeEmployee(url)
     {
       $.ajax({
         url: url,
@@ -66,10 +65,10 @@ function deleteSection(id,elem)
 
     }
   }
-  function viewSection(id)
+  function viewEmployee(id)
   {
-    $.get("{{url('employees')}}/"+id,function(data,status){
-      $('#bigModalLabel').html('Section Information');
+    $.get("{{url('employee')}}/"+id,function(data,status){
+      $('#bigModalLabel').html('Employee Information');
       $('#bigModalBody').html(data);
       $('#saveBig').hide();
       $('#cancelBig').hide();

@@ -38,22 +38,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
+
     public function index()
     {
         return view('auth.login');
     }
 
     public function login(Request $request)
-    {   
+    {
         $input = $request->all();
-        
+
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        // $user = auth()->user();
-        // $personnelType = $user['personnel_type'];
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
@@ -73,32 +71,6 @@ class LoginController extends Controller
                 return redirect()->route('login')
                     ->with('error','Email-Address And Password Are Wrong.');
             }
-            // if(auth()->user()->admin == 1)
-            // {
-            //     return redirect()->route('admin.index');
-            // }else{
-            //     switch (Auth::employee()->personnel_type) {
-            //         case 'counselor':
-            //             return redirect()->route('guidance.index');
-            //             break;
-            //         case 'librian':
-            //             return redirect()->route('library.index');
-            //             break;
-            //         case 'principal':
-            //             return redirect()->route('principal.index');
-            //             break;
-            //         case 'healthcareprofessional':
-            //             return redirect()->route('clinic.index');
-            //             break;
-            //         case 'teacher':
-            //             return redirect()->route('teacher.index');
-            //             break;
-                    
-            //         default:
-            //             return redirect()->route('login')->with('error','Email-Address And Password Are Wrong.');
-            //             break;
-            //     }
-            // }
         }
     }
 }

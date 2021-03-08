@@ -1,30 +1,44 @@
 @extends('admin.admin_layout')
 
 @section('content-body')
-<div class="row admin-row">
-    <a href="{{route('employees.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Personnel</h5>
-                <h1>21</h1>
+<div class="admin-card">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-header">Admin</div>
+                <div class="card-body"><p>no.1</p></div>
+                <div class="card-footer">
+                    <a href=""></a>
+                </div>
             </div>
         </div>
-    </a>
-    <a href="{{route('student.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Student</h5>
-                <h1>21</h1>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-header">Employees</div>
+                <div class="card-body"><p>no.1</p></div>
+                <div class="card-footer">
+                    <a href=""></a>
+                </div>
             </div>
         </div>
-    </a>
-    <a href="{{route('section.index')}}" class="admin-card col-lg-4 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Sections</h5>
-                <h1>21</h1>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-header">Students</div>
+                <div class="card-body"><p>no.1</p></div>
+                <div class="card-footer">
+                    <a href=""></a>
+                </div>
             </div>
         </div>
-    </a>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-header">Sections</div>
+                <div class="card-body"><p>no.1</p></div>
+                <div class="card-footer">
+                    <a href=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

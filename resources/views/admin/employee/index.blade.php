@@ -1,11 +1,9 @@
 @extends('admin.admin_layout')
-@section('css')
 
-@endsection
 @section('content-body')
 <div class="card" style="margin-bottom: 10px;">
     <div class="card-header">
-        {{__('Import Section')}}
+        {{__('Import Employee')}}
     </div>
     <div class="card-body">
         @if (isset($errors) && $errors->any())
@@ -39,7 +37,7 @@
                     @endforeach
                 </table>
             @endif
-        <form action="{{route('section.import')}}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('employee.import') }}" method="post" enctype="multipart/form-data" id="employee-import">
             @csrf
             @method('post')
             <div class="form-group">
@@ -50,40 +48,33 @@
     </div>
 </div>
 <div class="card">
-  <div class="card-header">{{ __('Sections') }}</div>
-  <div class="card-body">
-    <table class="table" id="sectionTable">
+  <div class="card-header">{{__('Employee')}}</div>
+    <div class="card-body">
+      <table class="table display row-border" id="employeesTable">
         <thead>
-        <tr>
-            <th>{{ __('Section Name') }}</th>
-            <th>{{ __('Room Number') }}</th>
-            <th>{{ __('Teacher/Adviser') }}</th>
-            <th>{{ __('Actions') }}</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach($sections as $section)
-            <tr>
-                <td>{{ $section->section_name }}</td>
-                <td>{{ $section->room_number }}</td>
-                <td>
-                    @foreach($employees as $employee)
-                    @if ($employee->id == $section->employee_id)
-                        {{$employee->lastname }}, {{ $employee->firstname}}
-                    @endif
-                    @endforeach
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-primary" onclick="viewSection({{$section->id}})" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
-                    <a href="{{route('section.edit', $section->id)}}"><button class="btn btn-sm btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-                    <button onclick="deleteStudent({{$section->id}},this)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
-                </td>
-            </tr>
-        @endforeach
+            @foreach ($employees as $employee)
+                <tr id="{{$employee->id}}">
+                  <td data-label="Name">{{$employee->lastname}}, {{$employee->firstname}} {{$employee->middlename[0]}}</td>
+                  <td data-label="Email">{{$employee->email}}</td>
+                  <td data-label="Employee Type"><p class="text-uppercase">{{$employee->personnel_type}}</p></td>
+                  <td data-label="Action">
+                      <button class="btn btn-sm btn-primary" onclick="viewEmployee({{$employee->id}})" data-target="#bigModal" data-toggle="modal"><i class="fas fa-address-card"></i>View</button>
+                      <a href="{{route('employee.edit', $employee->id)}}"><button class="btn btn-sm btn-success"><i class="fas fa-edit"></i>Edit</button></a>
+                      <button onclick="deleteEmployee({{$employee->id}},this)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+                  </td>
+                </tr>
+            @endforeach
         </tbody>
-    </table>
-
-  </div>
+      </table>
+    </div>
 </div>
 
 {{-- Modal --}}
@@ -124,8 +115,9 @@
     </div>
   </div>
 </div>
+
 @endsection
 
 @section('js')
-@include('inc.admin.section')
+@include('inc.admin.employee')
 @endsection

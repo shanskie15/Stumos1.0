@@ -1,66 +1,89 @@
 @extends('admin.admin_layout')
-@section('css')
-    
-@endsection
+
 @section('content-body')
-<div class="row" style="margin:2%;">
-  <div class="col-sm-2 col-md-4 col-lg-2">
-      <a href="#"><button class="btn btn-primary">Import Student</button></a>
-  </div>
-  <div class="col-sm-2 col-md-4 col-lg-2">
-      <a href="{{ route('student.export')}}"><button class="btn btn-primary">Export Student</button></a>
-  </div>
+<div class="card">
+    <div class="card-header">
+        {{__('Import Student')}}
+    </div>
+    <div class="card-body">
+        @if (isset($errors) && $errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    {{$error}}
+                @endforeach
+            </div>
+        @endif
+        @if (session()->has('failures'))
+                <table class="table table-danger">
+                    <tr>
+                        <th>Row</th>
+                        <th>Attribute</th>
+                        <th>Errors</th>
+                        <th>Value</th>
+                    </tr>
+                    @foreach (session()->get('failures') as $validation)
+                        <tr>
+                            <td>{{$validation->row()}}</td>
+                            <td>{{$validation->attribute()}}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($validation->errors() as $e)
+                                        <li>{{$e}}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>{{$validation->values()[$validation->attribute()]}}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            @endif
+        <form action="{{route('student.import')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('post')
+            <div class="form-group">
+                <input type="file" name="excel" />
+                <button type="submit" class="btn btn-primary">Import File</button>
+            </div>
+        </form>
+    </div>
 </div>
-<div class="card" style="margin:2%;">
-  <div class="card-header">
-    <div class="row">
-        <div class="col-sm-10 col-md-10 col-lg-10">
-          Student
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-          <a href="{{route('student.create')}}"><button class="btn btn-primary">Create Student</button></a>
-        </div>
-      </div>
-    </div>
+<div class="card">
+  <div class="card-header">{{__('Student')}}</div>
   <div class="card-body">
-    <div class="row">
-      <div class="table-responsive">
-        <table class="table" id="studentTable">
-          <thead class="text-primary">
-            <th>Name</th>
-            <th>Year</th>
-            <th>Section</th>
-            <th style="width:30%">Actions</th>
-          </thead>
-          <tbody>
+    <table class="table display row-border" id="studentTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Section</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach($students as $student)
-              @if($student->delete != 1)
-                <tr>
-                  <td>
+            <tr id="{{$student->id}}">
+                <td data-label="Name">
                     {{$student->lastname}}, {{$student->firstname}} {{$student->middlename[0]}}.
-                  </td>
-                  <td class="text-uppercase">
+                </td>
+                <td data-label="Year" class="text-uppercase">
                     {{ $student->year }}
-                  </td>
-                  <td>
-                  @foreach($sections as $section)
-                    @if ($section->id == $student->section_id)
-                      {{ $section->section_name }} 
-                    @endif
-                  @endforeach
-                  </td>
-                  <td>
-                  <button class="btn btn-sm btn-primary" onclick="viewStudent({{$student->id}})" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
-                  <a href="{{route('student.edit', $student->id)}}"><button class="btn btn-sm btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-                  <button onclick="deleteStudent({{$student->id}},this)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
-                  </td>
-                </tr>
-              @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-    </div>
+                </td>
+                <td data-label="Section">
+                    @foreach($sections as $section)
+                        @if ($section->id == $student->section_id)
+                        {{ $section->section_name }}
+                        @endif
+                    @endforeach
+                </td>
+                <td data-label="Action">
+                    <button class="btn btn-sm btn-primary" onclick="viewStudent({{$student->id}})" data-target="#bigModal" data-toggle="modal"><i class="far fa-list-alt"></i>View</button>
+                    <a href="{{route('student.edit', $student->id)}}"><button class="btn btn-sm btn-success"><i class="fas fa-edit"></i>Edit</button></a>
+                    <button onclick="deleteStudent({{$student->id}},this)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>Delete</button>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
   </div>
 </div>
 
@@ -78,7 +101,7 @@
       <div class="modal-footer card-footer" style="background-color:#108790;color:white">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelNormal">Cancel</button>
         <button type="button" class="btn btn-primary" id="saveNormal">Save changes</button>
-        
+
       </div>
     </div>
   </div>
@@ -105,5 +128,5 @@
 @endsection
 
 @section('js')
-@include('inc.students')
+@include('inc.admin.student')
 @endsection

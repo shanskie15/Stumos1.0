@@ -26,25 +26,33 @@ Route::middleware(['admin_type'])->group(function () {
         Route::get('/', ['as' => 'admin.index','uses' => 'AdminController@index']);
     });
 
-    Route::prefix('employees')->group(function () {
-        Route::get('/export', ['as' => 'employees.export','uses' => 'EmployeesController@export']);
-        Route::get('/import', ['as' => 'employees.import','uses' => 'EmployeesController@import']);
-        Route::get('/import', ['as' => 'employees.importExcel','uses' => 'EmployeesController@importExcel']);
-        Route::delete('/soft/{id}','EmployeesController@delete');
+    Route::prefix('employee')->group(function () {
+        Route::get('/export', 'EmployeeController@export')->name('employee.export');
+        Route::post('/import', 'EmployeeController@import')->name('employee.import');
+        Route::get('/history', 'EmployeeController@history')->name('employee.history');
+        Route::get('/{employee}/edit', 'EmployeeController@edit')->name('employee.edit');
+        Route::put('/{employee}', 'EmployeeController@update')->name('employee.update');
+        Route::delete('/soft/{id}','EmployeeController@delete');
     });
-    Route::resource('employees', 'EmployeesController');
-    
+    Route::resource('employee', 'EmployeesController');
+
     Route::prefix('student')->group(function () {
-        // Route::get('/{student}/edit', ['as' => 'student.edit', 'uses' => 'StudentController@edit']);
-        Route::put('/{student}', ['as' => 'student.update', 'uses' => 'StudentController@update']);
-        Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);
+        // Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);
+        Route::post('/import', 'StudentController@import')->name('student.import');
+        Route::get('/history', 'StudentController@history')->name('student.history');
+        Route::get('/{student}/edit', 'StudentController@edit')->name('student.edit');
+        Route::put('/{student}', 'StudentController@update')->name('student.update');
+        Route::delete('/soft/{id}','StudentController@delete');
     });
     Route::resource('student', 'StudentController');
 
     Route::prefix('section')->group(function () {
-        Route::get('/{section}/edit', ['as' => 'section.edit', 'uses' => 'SectionController@edit']);
-        Route::put('/{section}', ['as' => 'section.update', 'uses' => 'SectionController@update']);
-        Route::get('/export', ['as' => 'section.export','uses' => 'SectionController@export']);
+        //     Route::get('/export', ['as' => 'section.export','uses' => 'SectionController@export']);
+        Route::post('/import', 'SectionController@import')->name('section.import');
+        Route::get('/history', 'SectionController@history')->name('section.history');
+        Route::get('/{section}/edit', 'SectionController@edit')->name('section.edit');
+        Route::put('/{section}', 'SectionController@update')->name('section.update');
+        Route::delete('/soft/{id}','SectionController@delete');
     });
     Route::resource('section', 'SectionController');
 });
@@ -92,10 +100,10 @@ Route::middleware(['healthcare_type'])->group(function () {
          Route::get('/',['as' => 'librarian.index','uses' => 'LibrarianController@index']);
           //  Route::get('/{librarian}/edit', ['as' => 'librarian.edit', 'uses' => 'LibrarianController@edit']);
         //  Route::put('/{librarian}', ['as' => 'librarian.update', 'uses' => 'LibrarianController@update']);
-         
+
      });
      Route::get('/borrow','LibrarianController@borrowindex');
-     
+
  });
 /*END LIBRARIAN PANEL*/
 

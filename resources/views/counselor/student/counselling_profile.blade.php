@@ -18,7 +18,7 @@
           <table class="table" id="studentTable">
             <thead class="text-primary">
               <th>Student ID</th>
-              <th>Counselor ID</th>
+              <th>Created By</th>
               <th style="width:30%">Actions</th>
             </thead>
             <tbody>

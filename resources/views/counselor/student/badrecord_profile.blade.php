@@ -19,7 +19,7 @@
             <thead class="text-primary">
               <th>Bad Record Type</th>
               <th>Student ID</th>
-              <th>Counselor ID</th>
+              <th>Created By</th>
               <th style="width:30%">Actions</th>
             </thead>
             <tbody>

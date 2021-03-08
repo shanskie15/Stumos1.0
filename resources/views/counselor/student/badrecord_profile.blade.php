@@ -13,26 +13,31 @@
       </div>
       @include('counselor.student.nav')
       <div class="card-body">
+      <h3>List of Bad Records</h3>
       <div class="row">
         <div class="table-responsive">
           <table class="table" id="studentTable">
             <thead class="text-primary">
               <th>Bad Record Type</th>
+              <th>Date Created</th>
               <th>Student ID</th>
               <th>Created By</th>
               <th style="width:30%">Actions</th>
             </thead>
             <tbody>
                   <tr>
-                    @foreach($badrecords as $badrecord)
+                    @foreach($datas as $data)
                     <td>
-                    {{$badrecord['bad_deed']}}
+                    {{$data->bad_deed}}
                     </td>
                     <td>
-                    {{$badrecord['student_id']}}   
+                    {{$data->created_at}}
                     </td>
                     <td>
-                    {{$badrecord['user_id']}}
+                    {{$data->student_id}}   
+                    </td>
+                    <td>
+                    {{$data->lastname}}, {{$data->firstname}}
                     </td>
                     <td>
                     <button class="btn btn-sm btn-primary"><i class="far fa-list-bars"></i>View</button>

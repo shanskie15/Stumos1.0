@@ -107,7 +107,12 @@ class CounselorController extends Controller
         $student = Student::find($id);
         $users = User::where('personnel_type','counselor')->get();
         $counsellings = Counselling::where('student_id', $id)->get();
-        return view('counselor.student.counselling_profile', compact('student','users','counsellings'));
+        $datas = DB::table('users')
+        ->join('counsellings', 'users.id', 'counsellings.user_id')
+        ->where('student_id',$id)
+        ->get(); 
+        //  dd($datas);  
+            return view('counselor.student.counselling_profile', compact('student', 'datas'));
     }
 
     public function studentBadRecordProfile($id)
@@ -115,7 +120,11 @@ class CounselorController extends Controller
         $student = Student::find($id);
         $users = User::where('personnel_type','counselor')->get();
         $badrecords = BadRecord::where('student_id', $id)->get();
-        return view('counselor.student.badrecord_profile', compact('student','users','badrecords'));
+        $datas = DB::table('users')
+        ->join('bad_records', 'users.id', 'bad_records.user_id')
+        ->where('student_id',$id)
+        ->get();
+        return view('counselor.student.badrecord_profile', compact('student','datas'));
     }
 
     /**

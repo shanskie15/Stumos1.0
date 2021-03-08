@@ -13,22 +13,28 @@
       </div>
       @include('counselor.student.nav')
       <div class="card-body">
+      <h3>List of Counselling Sessions</h3>
       <div class="row">
         <div class="table-responsive">
           <table class="table" id="studentTable">
             <thead class="text-primary">
               <th>Student ID</th>
+              <th>Date Created</th>
               <th>Created By</th>
               <th style="width:30%">Actions</th>
             </thead>
             <tbody>
                   <tr>
-                    @foreach($counsellings as $counselling)
+                    @foreach($datas as $data)
                     <td>
-                    {{$counselling['student_id']}}   
+                    {{$data->student_id}}   
                     </td>
                     <td>
-                    {{$counselling['user_id']}}
+                    {{$data->created_at}}
+                    </td>
+                    <td>
+                    {{-- {{$users['user_id']}} --}}
+                    {{$data->lastname}}, {{$data->firstname}}
                     </td>
                     <td>
                     <button class="btn btn-sm btn-primary"><i class="far fa-list-bars"></i>View</button>

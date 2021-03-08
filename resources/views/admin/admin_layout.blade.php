@@ -3,8 +3,7 @@
 @section('content')
     @include('admin.nav.sidebar')
     <div id="content">
-        @include('admin.nav.navbar')
-        @include('admin.import')
+        @include('admin.nav.navbar')    
         @yield('content-body')
     </div>
 @endsection

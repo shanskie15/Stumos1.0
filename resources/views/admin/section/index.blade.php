@@ -68,7 +68,7 @@
                 <td>{{ $section->room_number }}</td>
                 <td>
                     @foreach($employees as $employee)
-                    @if ($employee->id == $section->employee_id)
+                    @if ($employee->id == $section->user_id)
                         {{$employee->lastname }}, {{ $employee->firstname}}
                     @endif
                     @endforeach

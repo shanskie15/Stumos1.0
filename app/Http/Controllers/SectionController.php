@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Section;
-use App\Employee;
+use App\User;
 use Illuminate\Http\Request;
 use App\Exports\SectionsExport;
 use Illuminate\Support\Facades\Hash;
@@ -18,14 +18,14 @@ class SectionController extends Controller
 
     public function index()
     {
-        $employees = Employee::where('personnel_type','teacher')->get();
+        $employees = User::where('personnel_type','teacher')->get();
         $sections = Section::where('deleted','0')->get();
         return view('admin.section.index',compact('sections','employees'));
     }
 
     public function create()
     {
-        $employees = Employee::where('personnel_type','teacher')->get();
+        $employees = User::where('personnel_type','teacher')->get();
         return view('admin.section.create',compact('employees'));
     }
 
@@ -38,7 +38,7 @@ class SectionController extends Controller
         $section = Section::create([
             'section_name' => $request->section_name,
             'room_number' => $request->room_number,
-            'employee_id' => $request->employee_id,
+            'user_id' => $request->employee_id,
         ]);
 
         return redirect()->route('section.index');
@@ -47,14 +47,14 @@ class SectionController extends Controller
     public function edit($id)
     {
         $section = Section::find($id);
-        $employees = Employee::where('personnel_type','teacher')->get();
+        $employees = User::where('personnel_type','teacher')->get();
 		return view('admin.section.edit',compact('section', 'employees'));
     }
 
     public function show($id)
     {
         $section = Section::find($id);
-        $employees = Employee::where('personnel_type','teacher')->get();
+        $employees = User::where('personnel_type','teacher')->get();
         return view('admin.section.show', compact('section', 'employees'));
     }
 

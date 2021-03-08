@@ -35,31 +35,6 @@ class CounselorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createRecord()
-    {
-        $counselors = Counselor::where('deleted','0')->get();
-        $students = Student::where('deleted','0')->get();
-        return view('counselor.create.createrecord',compact('counselors','students'));
-    }
-
-    public function storeRecord(Request $request)
-    {
-        $request->validate([
-            'type'=>'required',
-            'description'=>'required',
-        ]);
-
-        return $request->input();
-		// $counselorcreate = CounselorCreate::create([
-        //     'user_id' => $request->user_id,
-        //     'student_id' => $request->student_id,
-        //     'type'=> $request->type,
-		// 	'bad_deed' => $request->bad_deed,
-		// 	'description' => $request->description,
-		// ]);
-		
-        // return redirect()->route('counselor.index');
-    }
     
     public function createBadRecord()
     {
@@ -123,9 +98,7 @@ class CounselorController extends Controller
     public function showProfile($id)
     {
         $student = Student::find($id);
-        $users = User::where('personnel_type','counselor')->get();
-        $badrecords = BadRecord::where('student_id', $id)->get();
-        return view('counselor.student.badrecord_profile', compact('student','users','badrecords'));
+        return view('counselor.student.index', compact('student'));
     }
 
     public function showCounsellingProfile($id)
@@ -135,6 +108,15 @@ class CounselorController extends Controller
         $counsellings = Counselling::where('student_id', $id)->get();
         return view('counselor.student.counselling_profile', compact('student','users','counsellings'));
     }
+
+    public function studentBadRecordProfile($id)
+    {
+        $student = Student::find($id);
+        $users = User::where('personnel_type','counselor')->get();
+        $badrecords = BadRecord::where('student_id', $id)->get();
+        return view('counselor.student.badrecord_profile', compact('student','users','badrecords'));
+    }
+
     /**
      * Display the specified resource.
      *

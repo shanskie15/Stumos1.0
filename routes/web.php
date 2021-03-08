@@ -82,6 +82,7 @@ Route::middleware(['counselor_type'])->group(function () {
      
      Route::get('/counselor/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
      Route::get('/counselor/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
+     Route::get('/counselor/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
  });
 /*END COUNSELOR PANEL*/
 

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@include('counselor.script.script')
 
 @section('content')
 <div class="container">

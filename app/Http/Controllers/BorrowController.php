@@ -110,8 +110,7 @@ class BorrowController extends Controller
 
         // return view('')
         // $data = Returned::all();
-        dd($borrows);
-        return view('library.borrow.viewreturned',compact('borrows')); 
+        return view('library.borrow.viewreturned',['borrows'=>$borrows]); 
     }
     function removedreturned($id){
         

@@ -63,8 +63,8 @@ class LoginController extends Controller
                 return redirect()->route('library.index');
             }if (auth()->user()->personnel_type == 'principal') {
                 return redirect()->route('principal.index');
-            }if (auth()->user()->personnel_type == 'healthcareprofessional') {
-                return redirect()->route('healthcareprofessional.index');
+            }if (auth()->user()->personnel_type == 'healthcare') {
+                return redirect()->route('healthcare.index');
             }if (auth()->user()->personnel_type == 'teacher') {
                 return redirect()->route('teacher.index');
             }else{

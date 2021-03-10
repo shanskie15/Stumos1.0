@@ -14,6 +14,7 @@ class CreateUserSeeder extends Seeder
     {
         $user = [
             [
+                'idnumber' => '20200001',
                 'firstname'=>'Admin',
                 'middlename'=>'The',
                 'lastname'=>'Great',
@@ -25,6 +26,7 @@ class CreateUserSeeder extends Seeder
                 'password'=> bcrypt('123456'),
             ],
             [
+                'idnumber' => '20200002',
                 'firstname'=>'Michael',
                 'middlename'=>'The',
                 'lastname'=>'Mauro',
@@ -36,6 +38,7 @@ class CreateUserSeeder extends Seeder
                 'password'=> bcrypt('123456'),
             ],
             [
+                'idnumber' => '20200003',
                 'firstname'=>'Martin',
                 'middlename'=>'The',
                 'lastname'=>'Gaitera',
@@ -47,6 +50,7 @@ class CreateUserSeeder extends Seeder
                 'password'=> bcrypt('123456'),
             ],
             [
+                'idnumber' => '20200004',
                 'firstname'=>'Gibert',
                 'middlename'=>'The',
                 'lastname'=>'Go',
@@ -58,6 +62,7 @@ class CreateUserSeeder extends Seeder
                 'password'=> bcrypt('123456'),
             ],
             [
+                'idnumber' => '20200005',
                 'firstname'=>'Sean',
                 'middlename'=>'The',
                 'lastname'=>'Mantos',
@@ -70,7 +75,7 @@ class CreateUserSeeder extends Seeder
             ]
 
         ];
-  
+
         foreach ($user as $key => $value) {
             User::create($value);
         }

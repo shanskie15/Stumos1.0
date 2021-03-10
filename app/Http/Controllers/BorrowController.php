@@ -12,41 +12,44 @@ use Illuminate\Support\Facades\Auth;
 class BorrowController extends Controller
 
 {
-    //
+   
     public function index(){
 
-        //$data = Borrow::where('deleted,','0')->get();
+       
+        $deleted='0';
+        $borrows=DB::table('borrows')
+        ->join('students','borrows.student_id','=','students.id')
+        ->where('borrows.deleted',$deleted)
+        ->select('borrows.*','students.*','borrows.id as borrows_id')
+        ->get(); 
+       
         
-
-        $data = Borrow::all();
-        // $userId=Session::get('user')['id'];
-        // $data=DB::table('borrows')
-        // ->join('students','borrows.student_id','=','students.id')
-        // ->where('borrows.user_id',$userId)
-        // ->select('borrows.*','students.*','borrows.id as borrows_id')
-        // ->get(); 
-        
-        return view('library.borrow.borrow',['borrows'=>$data]); 
+        return view('library.borrow.borrow',['borrows'=>$borrows]); 
 
 
     }
     function detail($id)
     {
-        $data = Borrow::find($id);
-        return view('library.borrow.detail',['borrows'=>$data]);
+       
+        $borrows=DB::table('borrows')
+        ->join('students','borrows.student_id','=','students.id')
+        ->where('borrows.id',$id)
+        ->select('borrows.*','students.*','borrows.id as borrows_id')
+        ->get(); 
+
+        return view('library.borrow.detail',['borrows'=>$borrows]);
     }
     function returneddetail($id)
     {
-        // $userId=Session::get('user')['id'];
-        // $borrows=DB::table('returned')
-        // ->join('borrows','returned.borrow_id','=','borrows.id')
-        // ->where('returned.user_id',$userId)
-        // ->select('borrows.*','returned.id as returned_id')
-        // ->get();   
-        // return view('returneddetail',['borrows'=>$borrows]); 
+        
+        $borrows=DB::table('borrows')
+        ->join('students','borrows.student_id','=','students.id')
+        ->where('borrows.id',$id)
+        ->select('borrows.*','students.*','borrows.id as borrows_id')
+        ->get(); 
 
-        $data = Borrow::find($id);
-        return view('library.borrow.returneddetail',['borrows'=>$data]);
+       
+        return view('library.borrow.returneddetail',['borrows'=>$borrows]);
     }
     function search(Request $req)
     {
@@ -58,14 +61,9 @@ class BorrowController extends Controller
     {       
        
             
-        // if($req->session()->has('user'))
-        // {               
-            // $returned = new Returned;
-            // $returned->user_id=$req->session()->get('user')['id'];
-            // $returned->borrow_id=$req->borrow_id;
-            // $returned->save();
-            // return redirect('/');
-            Borrow::destroy($req->id);
+        
+            Borrow::destroy($req->borrows_id);
+
 
             $returned = new Borrow;
             $returned->user_id=$req->user_id;
@@ -75,42 +73,31 @@ class BorrowController extends Controller
             $returned->deleted=$req->deleted;
             $returned->save();
             return redirect('/viewreturned');
-
-        // }else{
-        //     return redirect('/login');
-        // }     
+    
     }
     Static function returnedBook()
     {
 
         $userId=Session::get('user')['id'];
         
-        // {{ Auth::user()->id}}
+      
         return Returned::where('user_id',$userId)->count();
 
     }
     function viewreturned(){
                
         
-        // $userId=Session::get('user')['id'];
-        // print_r($userId);
-        // $borrows=DB::table('returned')
-        // ->join('borrows','returned.borrow_id','=','borrows.id')
-        // ->where('returned.user_id',$userId)
-        // ->select('borrows.*','returned.id as returned_id')
-        // ->get(); 
-        $userId=Auth::user()->id;
-       
 
-        $borrows=DB::table('borrows')
+        $deleted='1';
+      
+        
+        $borrow=DB::table('borrows')
         ->join('students','borrows.student_id','=','students.id')
-        ->where('borrows.user_id',$userId)
+        ->where('borrows.deleted',$deleted)
         ->select('borrows.*','students.*','borrows.id as borrows_id')
         ->get(); 
-
-        // return view('')
-        // $data = Returned::all();
-        return view('library.borrow.viewreturned',['borrows'=>$borrows]); 
+       
+        return view('library.borrow.viewreturned',['borrow'=>$borrow]); 
     }
     function removedreturned($id){
         
@@ -120,15 +107,7 @@ class BorrowController extends Controller
 
     }
    
-    // function deleted(Request $req)
-    // {
-    //     $data = new Borrow;
-    //     $data = Borrow::find($id); 
-    //     $data->deleted = '1';
-	// 	$data->save(); 
-
-    //     return redirect('/');
-    // }
+   
     function getaddborrow(){
 
          
@@ -141,22 +120,14 @@ class BorrowController extends Controller
     }
 
     function addborrow(Request $req)
-    {       
-       
-            
-        // if($req->session()->has('user'))
-        // {               
+    {                     
             $borrow = new Borrow;
             $borrow->user_id=$req->user_id;
             $borrow->student_id=$req->student_id;
             $borrow->bookname=$req->bookname;
             $borrow->description=$req->description;
             $borrow->save();
-            return redirect('/index');
-
-        // }else{
-        //     return redirect('/login');
-        // }     
+            return redirect('/index');          
     }
 }
 

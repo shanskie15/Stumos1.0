@@ -7,12 +7,12 @@
         </div>
         <div class="col-sm-6">
             <a href="/viewreturned"><button class="btn btn-primary">Back</button></a>
-            
-            <h2>Book Name:{{$borrows['bookname']}}</h2>
-            <h3>Borrowers Name:{{$borrows['lname']}} {{$borrows['fname']}}</h3>
-            <h4>Reminder:{{$borrows['description']}}</h4>
+            @foreach ($borrows as $borrow)
+            <h2>Book Name:{{$borrow->bookname}}</h2>
+            <h3>Borrowers Name:{{$borrow->lastname}} {{$borrow->firstname}}</h3>
+            <h4>Reminder:{{$borrow->description}}</h4>
             <br><br>
-            
+            @endforeach
             
             
         </div>

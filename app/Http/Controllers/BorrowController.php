@@ -22,7 +22,7 @@ class BorrowController extends Controller
         ->where('borrows.deleted',$deleted)
         ->select('borrows.*','students.*','borrows.id as borrows_id')
         ->get(); 
-       
+        
         
         return view('library.borrow.borrow',['borrows'=>$borrows]); 
 
@@ -126,6 +126,7 @@ class BorrowController extends Controller
             $borrow->student_id=$req->student_id;
             $borrow->bookname=$req->bookname;
             $borrow->description=$req->description;
+            $borrow->date_return=$req->date_return;
             $borrow->save();
             return redirect('/index');          
     }

@@ -10,9 +10,9 @@
             <div class="trending-item">
                 
                       
-                  <h2>Book Name:{{$borrow->bookname}}</h2>
-                  <h3>Borrowers Name:{{$borrow->lastname}} {{$borrow->firstname}}</h3>
-                  <h4>Details:{{$borrow->description}}</h4>
+                  <h4>Book Name:{{$borrow->bookname}}</h4>
+                  <h4>Borrowers Name:{{$borrow->lastname}} {{$borrow->firstname}}</h4>
+                  <h4>Date to be returned:{{$borrow->date_return}}</h4>
                   <br><br>
 
                   

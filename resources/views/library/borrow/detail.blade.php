@@ -1,6 +1,7 @@
- @extends('master')
-@section("content")
-   <div class="container">
+@extends('library.library_layout')
+
+@section('library-body')
+<div class="container">
     <div class="row">
         <div class="col-sm-6">
            

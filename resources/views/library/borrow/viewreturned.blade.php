@@ -1,6 +1,7 @@
- @extends('master')
-@section("content")
-   <div class="custom-borrow">
+@extends('library.library_layout')
+
+@section('library-body')
+<div class="custom-borrow">
     <div class="col-sm-10">
       <div class="trending-warraper">
             <h4>Returned Books</h4>
@@ -26,4 +27,5 @@
           </div>
      </div>
 </div>
-  @endsection
+@endsection
+

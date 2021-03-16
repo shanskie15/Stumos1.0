@@ -1,10 +1,12 @@
-@extends('master')
-@section("content")
-   <div class="custom-borrow">
+@extends('library.library_layout')
+
+@section('library-body')
+<div class="custom-borrow">
     <div class="col-sm-10">
         <h1>Add Borrow</h1>
-        <form action="/addborrow" method="POST">
+        <form action="{{route('library.store')}}" method="POST">
             @csrf
+            @method('post')
             <div class="form-group">
               <label for="formGroupExampleInput">Student Name</label>
               
@@ -39,4 +41,4 @@
           </form>  
      </div>
 </div>
-  @endsection
+@endsection

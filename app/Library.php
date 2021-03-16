@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Librarian extends Model
+class Library extends Model
 {
     public static $rules = [
         'user_id' => 'required',

@@ -24,7 +24,7 @@ class BorrowController extends Controller
         ->get(); 
         
         
-        return view('library.borrow.borrow',['borrows'=>$borrows]); 
+        return view('library.librarian_home',['borrows'=>$borrows]); 
 
 
     }
@@ -96,7 +96,7 @@ class BorrowController extends Controller
         ->where('borrows.deleted',$deleted)
         ->select('borrows.*','students.*','borrows.id as borrows_id')
         ->get(); 
-       
+        
         return view('library.borrow.viewreturned',['borrow'=>$borrow]); 
     }
     function removedreturned($id){

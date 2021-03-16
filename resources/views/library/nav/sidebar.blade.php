@@ -1,12 +1,14 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h3>{{ config('app.name', 'Stumos') }}</h3>
+        {{-- <h3>{{ config('app.name', 'Stumos') }}</h3> --}}
+        <h3>Library</h3>
     </div>
 
     <ul class="list-unstyled components">
         <div class="profile">
-            <img src="{{asset('img/user.png')}}" alt="User Picture">
+            {{-- <img src="{{asset('img/user.png')}}" alt="User Picture"> --}}
+            <img src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png" alt="Girl in a jacket" width="500" height="600">
             <p>{{Auth::user()->name}}</p>
         </div>
         <li>
@@ -19,13 +21,14 @@
             <a href="#employeeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-user-tie"></i> Borrow</a>
             <ul class="collapse list-unstyled" id="employeeSubmenu">
                 <li>
-                    <a href="{{route('borrow.index')}}"><i class="fas fa-table"></i> Borrow Table</a>
-                </li>
-                <li>
                     <a href="{{route('library.create')}}"><i class="fas fa-plus"></i> Add Borrow</a>
                 </li>
                 <li>
-                    <a href="{{route('borrow.viewreturned')}}"><i class="fas fa-history"></i>Returned Books</a>
+                    <a href="{{route('borrow.index')}}"><i class="fas fa-table"></i> Borrow Table</a>
+                </li>
+               
+                <li>
+                    <a href="{{route('borrow.viewreturned')}}"><i class="fas fa-table"></i>Returned Books</a>
                 </li>
             </ul>
         </li>

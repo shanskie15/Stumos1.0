@@ -1,31 +1,52 @@
 @extends('library.library_layout')
 
 @section('library-body')
-<div class="custom-borrow">
-    <div class="col-sm-10">
-      <div class="trending-warraper">
-            <h4>Returned Books</h4>
-            @foreach($borrow as $return)
-            {{-- @if($return->deleted != 0) --}}
-            <div class="row searched-item returned-devider">
-              <div class="col-sm-3">
-                <a href="returneddetail/{{$return->borrows_id}}">
-                  {{-- <img class="trending-image"  src="{{$return->gallery}}" alt="Chania"> --}}
-                  <h4>Borrowers Name:{{$return->lastname}},{{$return->firstname}} </h4>
-                    <h4>Book Name:{{$return->bookname}} </h4>
-                    <h4>Description: {{$return->description}}</h4>   
-                  </a>   
-              </div>
-              <div class="col-sm-3">
-                <a href="/removereturned/{{$return->borrows_id}}"><button  class="btn btn-warning">Remove </button></a>
+
+<div class="card" style="margin:2%;">
+ 
+  
+  <div class="card-body">
+  <h3>Returned Books</h3>
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table" id="borrowTable">
+        <thead class="text-primary">
+          <th>Book Name</th>
+          <th>Borrowers Name</th>
+          <th>Date to be returned</th>
+          <th style="width:30%">Actions</th>
+        </thead>
+        <tbody>
+          @foreach($borrow as $return)
+          
+              <tr>
+                <td>
+                  <a href="returneddetail/{{$return->borrows_id}}">
+                  {{$return->bookname}}
+                </a> 
+                </td>
+                <td>
+                  {{$return->lastname}}, {{$return->firstname}}
+                </td>
+                <td>
+                {{-- {{$users['user_id']}} --}}
+                {{$return->date_return}}
+                </td>
+                <td>
+                  <a href="/removereturned/{{$return->borrows_id}}"><button class="btn btn-sm btn-primary"><i class="far fa-list-bars"></i>Remove</button></a>
                 
-             </div>
-              
-            </div>
-            {{-- @endif --}}
-            @endforeach
-          </div>
-     </div>
+                </td>
+              </tr>
+          
+              @endforeach   
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+</div>
+</div>
+
+{{-- /// --}}
 @endsection
 

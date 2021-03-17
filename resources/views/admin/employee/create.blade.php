@@ -1,6 +1,6 @@
 @extends('admin.admin_layout')
 @section('css')
-    
+
 @endsection
 @section('content-body')
 <div class="card" style="margin:2%;">

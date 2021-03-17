@@ -83,7 +83,7 @@
                 <select name="personnel_type" class="form-control" value="{{$employee->personnel_type}}">
                         <option value="Teacher">Teacher</option>
                         <option value="Counselor">Councelor</option>
-                        <option value="HealthCareProfessional">HealthCareProfessional</option>
+                        <option value="HealthCare">HealthCare</option>
                         <option value="Librarian">Librarian</option>
                         <option value="Principal">Principal</option>
                 </select>

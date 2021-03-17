@@ -53,6 +53,7 @@
     <table class="table display row-border" id="studentTable">
         <thead>
             <tr>
+                <th>ID Number</th>
                 <th>Name</th>
                 <th>Year</th>
                 <th>Section</th>
@@ -62,6 +63,9 @@
         <tbody>
             @foreach($students as $student)
             <tr id="{{$student->id}}">
+                <td data-label="ID Number">
+                    {{ $student->idnumber }}
+                </td>
                 <td data-label="Name">
                     {{$student->lastname}}, {{$student->firstname}} {{$student->middlename[0]}}.
                 </td>
@@ -128,5 +132,5 @@
 @endsection
 
 @section('js')
-@include('inc.admin.student')
+    @include('inc.admin.student')
 @endsection

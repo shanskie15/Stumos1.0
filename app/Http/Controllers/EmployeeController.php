@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth;
 use App\Exports\EmployeesExport;
 use App\Imports\EmployeesImport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EmployeeController extends Controller
 {
@@ -25,7 +27,7 @@ class EmployeeController extends Controller
         return view('admin.employee.index', compact('employees'));
     }
 
-    public function history()
+    public function deleteHistory()
     {
         $employees = User::where('deleted','1')->get();
         return view('admin.employee.history', compact('employees'));
@@ -45,6 +47,7 @@ class EmployeeController extends Controller
         ]);
 
         $employee = User::create([
+            'idnumber' => Carbon::now()->format('Y').DB::table('users')->count(),
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'lastname' => $request->lastname,
@@ -79,7 +82,7 @@ class EmployeeController extends Controller
             'middlename'=>'required',
             'lastname'=>'required'
         ]);
-        $employee = User::where('deleted','0')->get($id);
+        $employee = User::find($id);
         $employee->firstname = $request->firstname;
         $employee->middlename = $request->middlename;
         $employee->lastname = $request->lastname;
@@ -109,8 +112,7 @@ class EmployeeController extends Controller
     // soft delete
     public function delete($id)
     {
-        $employee = User::where('deleted','0')->get($id);
-
+        $employee = User::find($id);
         $employee->deleted = '1';
         $employee->save();
         return response()->json([
@@ -119,22 +121,33 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function export(Excel $export)
+    public function recover($id)
     {
-        return (new EmployeesExport)->download('Employees'.Carbon::now()->format('_M_d_Y').'.xlsx');
+        $employee = User::where('deleted','1')->get($id);
+        $employee->deleted = '0';
+        $employee->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Employee recovered from the deleted list.'
+        ]);
     }
 
-    public function import(Request $request)
-    {
-        $file = $request->file('excel')->store('import');
+    // public function export(Excel $export)
+    // {
+    //     return (new EmployeesExport)->download('Employees'.Carbon::now()->format('_M_d_Y').'.xlsx');
+    // }
 
-        $import = new EmployeesImport;
-        $import->import($file);
+    // public function import(Request $request)
+    // {
+    //     $file = $request->file('excel')->store('import');
 
-        if ($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
-        }
+    //     $import = new EmployeesImport;
+    //     $import->import($file);
 
-        return back()->withStatus('Excel Files Imported Successful');
-    }
+    //     if ($import->failures()->isNotEmpty()) {
+    //         return back()->withFailures($import->failures());
+    //     }
+
+    //     return back()->withStatus('Excel Files Imported Successful');
+    // }
 }

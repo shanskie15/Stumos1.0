@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,12 +32,14 @@ Route::middleware(['admin_type'])->group(function () {
     Route::prefix('employee')->group(function () {
         Route::get('/export', 'EmployeeController@export')->name('employee.export');
         Route::post('/import', 'EmployeeController@import')->name('employee.import');
-        Route::get('/history', 'EmployeeController@history')->name('employee.history');
+        Route::get('/history', 'EmployeeController@deleteHistory')->name('employee.history');
         Route::get('/{employee}/edit', 'EmployeeController@edit')->name('employee.edit');
         Route::put('/{employee}', 'EmployeeController@update')->name('employee.update');
         Route::delete('/soft/{id}','EmployeeController@delete');
+        Route::get('/recover/{id}','EmployeeController@recover');
     });
     Route::resource('employee', 'EmployeeController');
+
 
     Route::prefix('student')->group(function () {
         // Route::get('/export', ['as' => 'student.export','uses' => 'StudentController@export']);
@@ -79,7 +84,7 @@ Route::middleware(['counselor_type'])->group(function () {
      Route::get('/counsel', 'CounselorController@createCounsel');
      Route::post('/storeBad', 'CounselorController@storeBad');
      Route::post('/storeCounsel', 'CounselorController@storeCounsel');
-     
+
      Route::get('/counselor/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
      Route::get('/counselor/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
      Route::get('/counselor/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');

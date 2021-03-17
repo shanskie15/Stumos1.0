@@ -1,54 +1,9 @@
 @extends('admin.admin_layout')
 
 @section('content-body')
-<div class="card" style="margin-bottom: 10px;">
-    <div class="card-header">
-        {{__('Import Employee')}}
-    </div>
-    <div class="card-body">
-        @if (isset($errors) && $errors->any())
-            <div class="alert alert-danger">
-                @foreach($errors->all() as $error)
-                    {{$error}}
-                @endforeach
-            </div>
-        @endif
-        @if (session()->has('failures'))
-                <table class="table table-danger">
-                    <tr>
-                        <th>Row</th>
-                        <th>Attribute</th>
-                        <th>Errors</th>
-                        <th>Value</th>
-                    </tr>
-                    @foreach (session()->get('failures') as $validation)
-                        <tr>
-                            <td>{{$validation->row()}}</td>
-                            <td>{{$validation->attribute()}}</td>
-                            <td>
-                                <ul>
-                                    @foreach ($validation->errors() as $e)
-                                        <li>{{$e}}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                            <td>{{$validation->values()[$validation->attribute()]}}</td>
-                        </tr>
-                    @endforeach
-                </table>
-            @endif
-        <form action="{{ route('employee.import') }}" method="post" enctype="multipart/form-data" id="employee-import">
-            @csrf
-            @method('post')
-            <div class="form-group">
-                <input type="file" name="excel" />
-                <button type="submit" class="btn btn-primary">Import File</button>
-            </div>
-        </form>
-    </div>
-</div>
+
 <div class="card">
-  <div class="card-header">{{__('Employee')}}</div>
+  <div class="card-header">{{__('Deleted Employee')}}</div>
     <div class="card-body">
       <table class="table display row-border" id="employeesTable">
         <thead>
@@ -57,7 +12,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Type</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -68,9 +23,8 @@
                   <td data-label="Email">{{$employee->email}}</td>
                   <td data-label="Employee Type"><p class="text-uppercase">{{$employee->personnel_type}}</p></td>
                   <td data-label="Action">
-                      <button class="btn btn-sm btn-primary" onclick="viewEmployee({{$employee->id}})" data-target="#bigModal" data-toggle="modal"><i class="fas fa-address-card"></i>View</button>
-                      <a href="{{route('employee.edit', $employee->id)}}"><button class="btn btn-sm btn-success"><i class="fas fa-edit"></i>Edit</button></a>
-                      <button class="btn btn-sm btn-danger" onclick="deleteEmployee({{$employee->id}},this)"><i class="fas fa-trash-alt"></i>Delete</button>
+                      <button class="btn btn-sm btn-primary" onclick="recoverEmployee({{$employee->id}},this)"><i class="fas fa-address-card"></i> Recover</button>
+                      <button class="btn btn-sm btn-danger" onclick="destroyEmployee({{$employee->id}},this)"><i class="fas fa-trash-alt"></i> Delete</button>
                   </td>
                 </tr>
             @endforeach

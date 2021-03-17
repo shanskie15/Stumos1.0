@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Section;
 use App\Student;
-use App\Employee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -34,6 +36,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $student = Student::create([
+            'idnumber' => Carbon::now()->format('Y').DB::table('students')->count(),
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'lastname' => $request->lastname,
@@ -53,7 +56,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
-        $employees = Employee::where('personnel_type','teacher')->get();
+        $employees = User::where('personnel_type','teacher')->get();
         $sections = Section::all();
         return view('admin.student.edit', compact('student','employees','sections'));
     }

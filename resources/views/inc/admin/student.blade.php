@@ -1,23 +1,24 @@
 <script type="text/javascript">
     $(document).ready(function(){
-      $('#employeesTable').DataTable(
+      $('#studentTable').DataTable(
         {
           "columns": [
+                { "data": "idnumber" },
                 { "data": "name" },
-                { "data": "email" },
-                { "data": "type" },
-                { "data": "action" },
+                { "data": "year" },
+                { "data": "section" },
+                { "data": "actions" },
             ]
         }
       );
-      var table = $('#employeesTable').DataTable();
+      var table = $('#studentTable').DataTable();
       $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
     });
-    function deleteEmployee(id,elem)
+    function deleteStudent(id,elem)
       {
         swal("Do you want to remove employee from database?", {
           buttons: {
@@ -36,12 +37,12 @@
           switch (value) {
 
             case "soft":
-              removeEmployee("{{url('employees/soft')}}/"+id,elem);
+              removeEmployee("{{url('student/soft')}}/"+id,elem);
 
               break;
 
             case "hard":
-              removeEmployee("{{url('employees')}}/"+id,elem);
+              removeEmployee("{{url('student')}}/"+id,elem);
               break;
             default:;
           }
@@ -65,13 +66,13 @@
 
         }
       }
-      function viewEmployee(id)
+      function viewStudent(id)
       {
-        $.get("{{url('employee')}}/"+id,function(data,status){
-          $('#bigModalLabel').html('Employee Information');
+        $.get("{{url('student')}}/"+id,function(data,status){
+          $('#bigModalLabel').html('Student Information');
           $('#bigModalBody').html(data);
           $('#saveBig').hide();
           $('#cancelBig').hide();
         });
       }
-    </script>
+</script>

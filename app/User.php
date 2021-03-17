@@ -11,6 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
+        'idnumber',
 		'email',
 		'firstname',
 		'middlename',
@@ -20,6 +21,7 @@ class User extends Authenticatable
 		'address',
 		'personnel_type',
 		'password',
+        'deleted',
 	];
-	
+
 }

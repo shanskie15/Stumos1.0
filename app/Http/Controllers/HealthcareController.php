@@ -16,16 +16,7 @@ class HealthcareController extends Controller
     public function index()
     {
         $students = Student::where('deleted','0')->get();
-		return view('clinic.clinic_home', compact('students'));
-    }
-
-    public function consultation()
-    {
-        return view('clinic.consultation.index');
-    }
-    public function history()
-    {
-        return view('clinic.history.history');
+		return view('clinic.clinic_layout', compact('students'));
     }
     /**
      * Show the form for creating a new resource.

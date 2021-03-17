@@ -1,10 +1,12 @@
-@extends('master')
-@section("content")
-   <div class="custom-borrow">
+@extends('library.library_layout')
+
+@section('library-body')
+<div class="custom-borrow">
     <div class="col-sm-10">
         <h1>Add Borrow</h1>
-        <form action="/addborrow" method="POST">
+        <form action="{{route('library.store')}}" method="POST">
             @csrf
+            @method('post')
             <div class="form-group">
               <label for="formGroupExampleInput">Student Name</label>
               
@@ -26,9 +28,17 @@
                 <label for="formGroupExampleInput2">Description</label>
                 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="description" name="description">
               </div>
-              <button class="btn btn-success">Add Borrow</button>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">Date Borrowed</label>
+                <input type="date" class="form-control" id="formGroupExampleInput2" placeholder="description"  value="{{ date('Y-m-d') }}">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">Return Date</label>
+                <input type="date" class="form-control" id="formGroupExampleInput2" placeholder="description" name="date_return" value="{{ now()->addDays(7)->format('Y-m-d') }}">
+              </div>
+              <button class="btn btn-success">Borrow</button>
             </form>
           </form>  
      </div>
 </div>
-  @endsection
+@endsection

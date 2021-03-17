@@ -1,6 +1,7 @@
- @extends('master')
-@section("content")
-   <div class="container">
+@extends('library.library_layout')
+
+@section('library-body')
+<div class="container">
     <div class="row">
         <div class="col-sm-6">
            
@@ -9,9 +10,12 @@
             <a href="/index"><button class="btn btn-primary">Back</button></a>
             @foreach ($borrows as $borrow)   
                       
-                  <h2>Book Name:{{$borrow->bookname}}</h2>
-                  <h3>Borrowers Name:{{$borrow->lastname}} {{$borrow->firstname}}</h3>
+                  <h4>Book Name:{{$borrow->bookname}}</h4>
+                  <h4>Borrowers Name:{{$borrow->lastname}} {{$borrow->firstname}}</h4>
+                  <h4>Student Contact:{{$borrow->contact}}</h4>
                   <h4>Details:{{$borrow->description}}</h4>
+                  <h4>Date to return:{{$borrow->date_return}}</h4>
+                  
             <br><br>
             <form action="/returned"  method="POST">
                 @csrf
@@ -31,7 +35,7 @@
            
             
             <br><br>
-            <button class="btn btn-danger">Block Student</button>
+            {{-- <button class="btn btn-danger">Block Student</button> --}}
             <br><br>
         </div>
     </div>

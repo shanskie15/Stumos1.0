@@ -2,11 +2,12 @@
 
 @section('library-body')
 
+
 <div class="card" style="margin:2%;">
  
   
   <div class="card-body">
-  <h3>Returned Books</h3>
+  <h3>Borrow List</h3>
   <div class="row">
     <div class="table-responsive">
       <table class="table" id="borrowTable">
@@ -17,27 +18,22 @@
           <th style="width:30%">Actions</th>
         </thead>
         <tbody>
-          @foreach($borrow as $return)
-          
               <tr>
+                @foreach($borrows as $borrow)
                 <td>
-                  <a href="returneddetail/{{$return->borrows_id}}">
-                  {{$return->bookname}}
-                </a> 
+                  {{$borrow->bookname}}
                 </td>
                 <td>
-                  {{$return->lastname}}, {{$return->firstname}}
+                  {{$borrow->lastname}}, {{$borrow->firstname}}
                 </td>
                 <td>
                 {{-- {{$users['user_id']}} --}}
-                {{$return->date_return}}
+                {{$borrow->date_return}}
                 </td>
                 <td>
-                  <a href="/removereturned/{{$return->borrows_id}}"><button class="btn btn-sm btn-primary"><i class="far fa-list-bars"></i>Remove</button></a>
-                
+                <button class="btn btn-sm btn-primary"><i class="far fa-list-bars"></i>View</button>
                 </td>
               </tr>
-          
               @endforeach   
         </tbody>
       </table>
@@ -48,5 +44,8 @@
 </div>
 
 {{-- /// --}}
-@endsection
 
+@endsection
+@section('js')
+    @include('inc.library.borrow_table')
+@endsection

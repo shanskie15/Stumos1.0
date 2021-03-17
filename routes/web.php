@@ -76,18 +76,25 @@ Route::middleware(['teacher_type'])->group(function () {
 
 /*COUNSELOR PANEL*/
 Route::middleware(['counselor_type'])->group(function () {
-    Route::resource('counselor', 'CounselorController');
-        Route::prefix('counselor')->group(function () {
+    Route::prefix('counselor')->group(function () {
         Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
+        Route::get('/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
+        Route::get('/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
+        Route::get('/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
      });
      Route::get('/badrecord', 'CounselorController@createBadRecord');
      Route::get('/counsel', 'CounselorController@createCounsel');
      Route::post('/storeBad', 'CounselorController@storeBad');
      Route::post('/storeCounsel', 'CounselorController@storeCounsel');
+<<<<<<< HEAD
 
      Route::get('/counselor/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
      Route::get('/counselor/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
      Route::get('/counselor/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
+=======
+     
+     Route::resource('counselor', 'CounselorController');
+>>>>>>> ef4c2f8c3f839de0879e59f83795ff54f784403a
  });
 /*END COUNSELOR PANEL*/
 
@@ -103,33 +110,38 @@ Route::middleware(['healthcare_type'])->group(function () {
 /*END HEALTH CARE PROFESSIONAL PANEL*/
 
 /*LIBRARIAN PANEL*/
+Route::middleware(['librarian_type'])->group(function () {
+    Route::prefix('library')->group(function () {
+        Route::get('/','LibraryController@index')->name('library.index');
+    });
+    Route::get('/borrow','LibraryController@borrowindex')->name('borrow.index');
+    Route::get('/detail/{id}','LibraryController@detail')->name('borrow.detail');
+    Route::get('/viewreturned','LibraryController@viewreturned')->name('borrow.viewreturned');
+    Route::post('/returned','LibraryController@returned')->name('borrow.detail');
+    Route::get('/removereturned/{id}','LibraryController@removedreturned');
+    Route::get('/returneddetail/{id}','LibraryController@returneddetail')->name('borrow.returneddetail');
 
- // Route::get('/login', function () {
-//     return view('login');
-// });
-
-Route::get('/logout', function () {
-    Session::forget('user');
-    return redirect('login');
+   
+    Route::resource('library', 'LibraryController', ['except' => ['destroy','update','edit','show']]);
 });
 
 // Route::prefix('librarian')->group(function () {
-Route::get('getaddborrow','BorrowController@getaddborrow');
-// Route::post('/login','UserController@login');
-Route::get('/home', 'HomeController@index')->name('home');
+    // Route::post('/login','UserController@login');
+// Route::get('getaddborrow','BorrowController@getaddborrow');
 
-Route::get('/index','BorrowController@index')->name('library.index');
-Route::get('detail/{id}','BorrowController@detail');
-Route::get('returneddetail/{id}','BorrowController@returneddetail');
-Route::get('search','BorrowController@search');
-Route::post('returned','BorrowController@returned');
-Route::get('viewreturned','BorrowController@viewreturned');
-Route::get('removereturned/{id}','BorrowController@removedreturned');
-Route::post('addborrow','BorrowController@addborrow');
-Route::resource('librarian', 'BorrowController');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/index','BorrowController@index')->name('library.index');
+
+// Route::get('detail/{id}','BorrowController@detail');
+// Route::get('returneddetail/{id}','BorrowController@returneddetail');
+// Route::get('search','BorrowController@search');
+// Route::post('returned','BorrowController@returned');
+// Route::get('viewreturned','BorrowController@viewreturned');
+// Route::get('removereturned/{id}','BorrowController@removedreturned');
+// Route::post('addborrow','BorrowController@addborrow');
+// Route::resource('librarian', 'BorrowController');
 // });
-
-
 
 /*END LIBRARIAN PANEL*/
 

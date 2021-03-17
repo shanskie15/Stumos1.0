@@ -19,7 +19,7 @@ class CreateBorrowsTable extends Migration
             $table->integer('user_id');
             $table->string('bookname');
             $table->string('description');
-            // $table->string('gallery');
+            $table->date('date_return')->nullable();
             $table->enum('deleted',['0','1'])->default('0');
             $table->timestamps();
         });

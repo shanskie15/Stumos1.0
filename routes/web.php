@@ -77,25 +77,19 @@ Route::middleware(['teacher_type'])->group(function () {
 /*COUNSELOR PANEL*/
 Route::middleware(['counselor_type'])->group(function () {
     Route::prefix('counselor')->group(function () {
-        Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
-        Route::get('/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
-        Route::get('/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
-        Route::get('/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
-     });
-     Route::get('/badrecord', 'CounselorController@createBadRecord');
-     Route::get('/counsel', 'CounselorController@createCounsel');
-     Route::post('/storeBad', 'CounselorController@storeBad');
-     Route::post('/storeCounsel', 'CounselorController@storeCounsel');
-<<<<<<< HEAD
+    Route::get('/',['as' => 'counselor.index','uses' => 'CounselorController@index']);
+    Route::get('studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
+    Route::get('studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
+    Route::get('studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
+    });
 
-     Route::get('/counselor/studentprofile/{id}', 'CounselorController@showProfile')->name('studentprofile');
-     Route::get('/counselor/studentcounselling/{id}', 'CounselorController@showCounsellingProfile')->name('studentcounselling');
-     Route::get('/counselor/studentbadrecords/{id}', 'CounselorController@studentBadRecordProfile')->name('studentbadrecords');
-=======
-     
-     Route::resource('counselor', 'CounselorController');
->>>>>>> ef4c2f8c3f839de0879e59f83795ff54f784403a
- });
+    Route::get('/badrecord', 'CounselorController@createBadRecord');
+    Route::get('/counsel', 'CounselorController@createCounsel');
+    Route::post('/storeBad', 'CounselorController@storeBad');
+    Route::post('/storeCounsel', 'CounselorController@storeCounsel');
+    Route::resource('counselor', 'CounselorController');
+
+});
 /*END COUNSELOR PANEL*/
 
 /*HEALTH CARE PROFESSIONAL PANEL*/

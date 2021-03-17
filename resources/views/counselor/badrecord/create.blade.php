@@ -7,7 +7,7 @@
   <div class="card-header">
     <div class="row">
         <div class="col-sm-10 col-md-10 col-lg-10">
-            Create Bad Record
+            <h1>Create Bad Record</h1>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
             <a href="{{route('counselor.index')}}"><button class="btn btn-primary" style="float:right;">Back</button></a>

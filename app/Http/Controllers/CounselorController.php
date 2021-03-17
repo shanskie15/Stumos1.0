@@ -135,7 +135,14 @@ class CounselorController extends Controller
      */
     public function show(Counselor $counselor)
     {
-        //
+        
+    }
+
+    public function showDesc($id)
+    {
+        $student = User::find($id);
+        $counsellings = Counselling::where('student_id', $id)->get();
+        return view('counselor.student.show', compact('student', 'counsellings'));
     }
 
     /**

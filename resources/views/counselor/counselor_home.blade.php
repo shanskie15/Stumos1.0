@@ -88,6 +88,7 @@
                     </td>
                     <td>
                     <a href="{{route('studentprofile', $student->id)}}"><button class="btn btn-sm btn-success"><i class="fas fa-bars"></i>View</button></a>
+                    <a href=""> <i class="fas fa-trash"></i>Delete</button>
                     </td>
                     </tr>
                     @endif
